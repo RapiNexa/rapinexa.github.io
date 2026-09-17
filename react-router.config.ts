@@ -1,7 +1,9 @@
 import type { Config } from "@react-router/dev/config";
 
 export default {
-  // Config options...
-  // Server-side render by default, to enable SPA mode set this to `false`
-  ssr: true,
+  // Static SPA: no server runtime, deployed to GitHub Pages.
+  ssr: false,
+
+  /** Custom Config */
+  appDirectory: "./src/app",
 } satisfies Config;

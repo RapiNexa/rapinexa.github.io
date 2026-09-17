@@ -1,0 +1,63 @@
+@import "tailwindcss";
+
+@theme {
+  --font-display: "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Manrope", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "Space Mono", ui-monospace, monospace;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+::selection {
+  background: rgba(123, 60, 232, 0.35);
+}
+
+/* ── Theme variables ──
+   Purple (--accent) is the unchanged primary brand accent. Gold is the
+   secondary brand token reserved for the wordmark and highlighted Bundle
+   card in later tickets; it is defined in both themes now so those tickets
+   only need to reference it. */
+:root {
+  --bg: #08080d;
+  --bg2: #0f0f18;
+  --surface: rgba(255, 255, 255, 0.035);
+  --surface-hover: rgba(255, 255, 255, 0.07);
+  --border: rgba(255, 255, 255, 0.10);
+  --text: #f3f2f8;
+  --muted: rgba(243, 242, 248, 0.56);
+  --faint: rgba(243, 242, 248, 0.34);
+
+  --accent: #7b3ce8;
+  --accent-text: #c4a8fb;
+  --accent-soft: rgba(123, 60, 232, 0.15);
+
+  --gold: #d8b36a;
+  --gold-soft: rgba(216, 179, 106, 0.18);
+}
+
+[data-theme="light"] {
+  --bg: #f2f1f7;
+  --bg2: #ffffff;
+  --surface: rgba(18, 16, 28, 0.025);
+  --surface-hover: rgba(18, 16, 28, 0.055);
+  --border: rgba(18, 16, 28, 0.10);
+  --text: #14121c;
+  --muted: rgba(20, 18, 28, 0.62);
+  --faint: rgba(20, 18, 28, 0.40);
+
+  --accent-text: #7a51d9;
+  --accent-soft: rgba(123, 60, 232, 0.10);
+
+  /* Deeper shade than the dark-mode gold: the raw #d8b36a reads too light
+     against a near-white background. */
+  --gold: #a8791f;
+  --gold-soft: rgba(168, 121, 31, 0.16);
+}
