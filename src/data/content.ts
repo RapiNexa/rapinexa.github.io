@@ -487,7 +487,7 @@ export const WORKS: Work[] = [
     summary:
       "Transaksi, pesanan, stok, dan produksi jamu Djampi Jawi lebih mudah dipantau lintas cabang. Sistem kasir dan panel pengelolaan membantu pencatatan dari pesanan masuk hingga laporan akhir giliran kerja.",
     deliverables: ["POS Kasir", "Panel Pengelolaan Usaha"],
-    platforms: ["react-native", "laravel"],
+    // platforms: ["react-native", "laravel"],
     screenshots: [
       "/assets/screenshots/djampi-jawi-pos-1.jpg",
       "/assets/screenshots/djampi-jawi-pos-2.jpg",
@@ -499,7 +499,7 @@ export const WORKS: Work[] = [
     client: "Moment Stockist",
     summary:
       "Toko online Moment Stockist membantu pelanggan mengenal produk suplemen dan berbelanja dari katalog hingga penyelesaian pesanan. Pelanggan dapat menyimpan alamat pengiriman dan melihat riwayat pesanan lewat akun mereka.",
-    deliverables: ["Toko Online"],
+    deliverables: ["Website dan Pengelolaan Konten", "Integrasi Sistem"],
     screenshots: ["/assets/screenshots/moment-stockist-1.png"],
     initials: "MS",
   },
