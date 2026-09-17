@@ -4,9 +4,9 @@
  * and data updates never require touching component code.
  *
  * Ticket 01 seeded site meta and the Hero. Ticket 02 adds Platforms. Ticket
- * 03 adds Navbar/Footer. Later tickets extend this module with Profile,
- * Services, Bundle, and Works — add new exports here rather than starting a
- * second content module.
+ * 03 adds Navbar/Footer. Ticket 05 adds Profile, Services, and the Bundle.
+ * Ticket 06 adds Works. Later tickets extend this module further — add new
+ * exports here rather than starting a second content module.
  */
 
 import type { IconType } from "react-icons";
@@ -444,6 +444,74 @@ export type BundleSectionContent = {
 export const BUNDLE_SECTION: BundleSectionContent = {
   heading: "Bundle Hemat",
   ctaLabel: "Chat via WhatsApp",
+};
+
+/**
+ * Everything RapiNexa delivered for one Client (CONTEXT.md: Work), shown as
+ * proof of capability (ticket 06). Deliberately has **no** `period`, `role`,
+ * `title`, or `department` field — the reference project's FeaturedProjects
+ * carried all four, and the spec ("Content layer") requires that adding one
+ * back fails `yarn typecheck`. This is a plain object type (not a
+ * `Record<string, unknown>` or an indexed type), so TypeScript's
+ * excess-property check on a `Work` object literal below catches an added
+ * field immediately — verified by temporarily adding `period` to an entry
+ * and confirming `yarn typecheck` fails.
+ */
+export type Work = {
+  /** The business this Work was delivered for (CONTEXT.md: Client). */
+  client: string;
+  /** Outcome-focused: what the Work achieved for the Client, not a task list. */
+  summary: string;
+  /** A single system delivered within the Work (CONTEXT.md: Deliverable), e.g. "POS Kasir". */
+  deliverables: string[];
+  /** Optional Platform ids (see `PLATFORMS`/`getPlatformsByIds`) rendered as chips. */
+  platforms?: string[];
+  /** Optional image paths; a Work with none renders the `initials` placeholder instead. */
+  screenshots?: string[];
+  /** Placeholder shown when `screenshots` is absent/empty, e.g. "DJ". */
+  initials: string;
+};
+
+/**
+ * RapiNexa's Works (ticket 06), one per Client. Adding an entry here renders
+ * an additional Karya card with no component change — the ticket's
+ * "add a third Work" acceptance check exercises exactly this. Facts are
+ * sourced from `docs/projects/DJAMPI_JAWI_POS_PORTFOLIO.md`,
+ * `DJAMPI_JAWI_PANEL_PORTFOLIO.md`, and the `ELLA_*_PORTFOLIO.md` docs;
+ * copy is placeholder until ticket 09.
+ */
+export const WORKS: Work[] = [
+  {
+    client: "Djampi Jawi",
+    summary:
+      "Operasional kasir dan produksi jamu Djampi Jawi kini tercatat rapi dan real-time di semua cabang, dari transaksi di kasir sampai laporan tutup shift.",
+    deliverables: ["POS Kasir", "Panel Admin"],
+    platforms: ["react-native", "laravel"],
+    screenshots: [
+      "/assets/screenshots/djampi-jawi-pos-1.jpg",
+      "/assets/screenshots/djampi-jawi-pos-2.jpg",
+      "/assets/screenshots/djampi-jawi-pos-3.jpg",
+    ],
+    initials: "DJ",
+  },
+  {
+    client: "Ella Skin Care",
+    summary:
+      "Website, arsip dokumen, dan tiket work order Ella Skin Care terhubung dalam satu sistem, memudahkan tim pusat dan cabang bekerja tanpa bolak-balik spreadsheet.",
+    deliverables: ["Website & CMS", "API", "Arsip Dokumen", "Tiket Work Order"],
+    screenshots: ["/assets/screenshots/ella-skin-care.png"],
+    initials: "ES",
+  },
+];
+
+export type KaryaSectionContent = {
+  heading: string;
+  subheading?: string;
+};
+
+export const KARYA_SECTION: KaryaSectionContent = {
+  heading: "Karya Kami",
+  subheading: "Sebagian Karya yang sudah kami kerjakan untuk Client di berbagai industri.",
 };
 
 export type CtaContent = {
