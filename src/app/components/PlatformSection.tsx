@@ -1,5 +1,7 @@
+import clsx from "clsx";
 import type { CSSProperties } from "react";
 import { PLATFORM_SECTION, PLATFORMS, SECTION_IDS, type Platform } from "src/data/content";
+import type { BaseProps } from "src/types/utilities";
 
 /**
  * Platform section: a simple, responsive grid of monochrome Platform logos
@@ -44,30 +46,26 @@ export default function PlatformSection() {
       </div>
 
       <ul
-        style={{
-          display: "grid",
-          gridTemplateColumns: "repeat(auto-fit, minmax(110px, 1fr))",
-          gap: 16,
-          margin: 0,
-          padding: 0,
-        }}
+        className="flex flex-wrap justify-center items-start gap-4"
       >
         {PLATFORMS.map((platform) => (
-          <PlatformTile key={platform.id} platform={platform} />
+          <div key={platform.id} className="w-28">
+            <PlatformTile className="w-full h-24" platform={platform} />
+          </div>
         ))}
       </ul>
     </section>
   );
 }
 
-function PlatformTile({ platform }: { platform: Platform }) {
+function PlatformTile({ className, platform }: BaseProps & { platform: Platform }) {
   const Icon = platform.icon;
   const tileStyle = {
     "--platform-brand": platform.brandColor ?? "var(--accent)",
   } as CSSProperties;
 
   return (
-    <li className="platform-tile" style={tileStyle}>
+    <li className={clsx("platform-tile", className)} style={tileStyle}>
       {Icon ? (
         <>
           <Icon aria-hidden="true" size={32} />

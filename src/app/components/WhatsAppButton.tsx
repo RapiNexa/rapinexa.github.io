@@ -39,15 +39,16 @@ export default function WhatsAppButton({
       rel="noopener noreferrer"
       data-cta-source={source}
       className={clsx(
-        "inline-flex items-center gap-2 no-underline hover:-translate-y-0.5",
-        className
+        "inline-flex items-center gap-2 no-underline hover:-translate-y-0.5 active:translate-y-0",
+        className,
+        !isPrimary && "border border-gray-500 hover:bg-black/10 dark:hover:bg-white/10",
       )}
       style={{
         padding: "14px 24px",
         borderRadius: 13,
         fontWeight: 700,
         fontSize: 15,
-        transition: "transform .2s ease, box-shadow .2s ease, background .2s ease, color .2s ease",
+        transition: "all .2s ease-in-out",
         ...(isPrimary
           ? {
               background: "var(--accent)",
@@ -55,8 +56,6 @@ export default function WhatsAppButton({
               boxShadow: "0 10px 34px var(--accent-soft)",
             }
           : {
-              background: "transparent",
-              border: "1px solid var(--border)",
               color: "var(--text)",
             }),
       }}

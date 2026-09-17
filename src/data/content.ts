@@ -59,7 +59,7 @@ export const HERO: HeroContent = {
   headline: "Usaha Dikenal, Kerja Lebih Rapi",
   subheadline:
     "Kami bantu usaha Anda tampil lewat website dan video Shorts/Reels, serta merapikan transaksi dan pencatatan dengan POS kasir dan automation sederhana.",
-  ctaLabel: "Diskusi lewat WhatsApp",
+  ctaLabel: "Diskusi Lewat WhatsApp",
   ctaMessage:
     "Halo RapiNexa, boleh minta rekomendasi layanan digital yang sesuai dengan kebutuhan dan anggaran usaha kami?",
   orbitLabel: "Tim Digital",
@@ -390,7 +390,7 @@ export type LayananSectionContent = {
 export const LAYANAN_SECTION: LayananSectionContent = {
   heading: "Solusi untuk kebutuhan usaha Anda",
   subheading: "Ingin usaha lebih dikenal atau pekerjaan lebih tertata? Pilih kebutuhan Anda, lalu diskusikan cakupan dan anggarannya bersama kami.",
-  ctaLabel: "Tanya layanan ini",
+  ctaLabel: "Tanya Layanan Ini",
 };
 
 /** One Service referenced from the Bundle, with its own quantity/notes. */
@@ -529,7 +529,7 @@ export type CtaContent = {
 export const CTA: CtaContent = {
   heading: "Mulai dari kebutuhan usaha Anda",
   body: "Ceritakan pekerjaan yang ingin dirapikan atau penawaran yang ingin dikenalkan. Kami bantu pilih langkah yang sesuai kebutuhan dan anggaran Anda lewat konsultasi awal tanpa biaya.",
-  ctaLabel: "Diskusi lewat WhatsApp",
+  ctaLabel: "Diskusi Lewat WhatsApp",
   ctaMessage:
     "Halo RapiNexa, boleh minta rekomendasi layanan digital yang sesuai dengan kebutuhan dan anggaran usaha kami?",
 };
