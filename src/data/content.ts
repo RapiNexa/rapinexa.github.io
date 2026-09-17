@@ -36,10 +36,10 @@ export type SiteMeta = {
 export const SITE_META: SiteMeta = {
   title: "RapiNexa — Solusi Digital untuk UMKM",
   description:
-    "RapiNexa membantu UMKM Indonesia go digital lewat website, POS kasir, automasi sederhana, dan Video Shorts/Reels dengan harga terjangkau.",
+    "Website, POS kasir, video Shorts/Reels, dan pencatatan otomatis untuk UMKM. Kenali layanan RapiNexa dan diskusikan kebutuhan usaha Anda lewat WhatsApp.",
   ogTitle: "RapiNexa — Solusi Digital untuk UMKM",
   ogDescription:
-    "Layanan digital untuk UMKM Indonesia: website, POS kasir, automasi sederhana, dan Video Shorts/Reels.",
+    "Bantu pelanggan mengenal usaha Anda dan rapikan operasional bersama RapiNexa. Lihat layanan, harga mulai dari, dan karya kami untuk bisnis Indonesia.",
   ogImage: "https://rapinexa.github.io/assets/brand/og-image.png",
   ogUrl: "https://rapinexa.github.io/",
 };
@@ -55,13 +55,13 @@ export type HeroContent = {
 };
 
 export const HERO: HeroContent = {
-  eyebrow: "RapiNexa",
-  headline: "Solusi Digital untuk UMKM Naik Kelas",
+  eyebrow: "Tim digital untuk UMKM",
+  headline: "Usaha Dikenal, Kerja Lebih Rapi",
   subheadline:
-    "Website, POS kasir, automasi sederhana, dan Video Shorts/Reels — dikerjakan oleh satu tim yang sama.",
-  ctaLabel: "Chat via WhatsApp",
+    "Kami bantu usaha Anda tampil lewat website dan video Shorts/Reels, serta merapikan transaksi dan pencatatan dengan POS kasir dan automation sederhana.",
+  ctaLabel: "Diskusi lewat WhatsApp",
   ctaMessage:
-    "Halo RapiNexa, saya ingin tanya-tanya soal layanan digital untuk usaha saya.",
+    "Halo RapiNexa, boleh minta rekomendasi layanan digital yang sesuai dengan kebutuhan dan anggaran usaha kami?",
   orbitLabel: "Tim Digital",
 };
 
@@ -166,9 +166,9 @@ export type PlatformSectionContent = {
 };
 
 export const PLATFORM_SECTION: PlatformSectionContent = {
-  heading: "Platform yang kami dukung",
+  heading: "Terhubung dengan alat usaha Anda",
   subheading:
-    "Sebagian teknologi dan layanan pihak ketiga yang bisa RapiNexa integrasikan ke dalam Layanan Anda.",
+    "Kami membangun dan menghubungkan layanan dengan platform berikut, sesuai kebutuhan usaha Anda.",
 };
 
 /**
@@ -206,9 +206,9 @@ export const NAVBAR: NavbarContent = {
     { id: SECTION_IDS.karya, label: "Karya" },
     { id: SECTION_IDS.platform, label: "Platform" },
   ],
-  whatsappLabel: "Chat WhatsApp",
+  whatsappLabel: "Hubungi kami",
   whatsappMessage:
-    "Halo RapiNexa, saya ingin tanya-tanya soal layanan digital untuk usaha saya.",
+    "Halo RapiNexa, boleh minta rekomendasi layanan digital yang sesuai dengan kebutuhan dan anggaran usaha kami?",
   themeToggleLabel: "Ganti tema",
   menuOpenLabel: "Buka menu",
   menuCloseLabel: "Tutup menu",
@@ -223,9 +223,9 @@ export type FooterContent = {
 
 export const FOOTER: FooterContent = {
   serviceArea: "Melayani seluruh Indonesia",
-  whatsappLabel: "Chat WhatsApp",
+  whatsappLabel: "Hubungi lewat WhatsApp",
   whatsappMessage:
-    "Halo RapiNexa, saya ingin tanya-tanya soal layanan digital untuk usaha saya.",
+    "Halo RapiNexa, boleh minta rekomendasi layanan digital yang sesuai dengan kebutuhan dan anggaran usaha kami?",
 };
 
 /**
@@ -245,21 +245,20 @@ export type ProfileContent = {
 
 /**
  * Profil singkat (ticket 04): a short company statement introducing
- * RapiNexa as a team, not an individual freelancer. Placeholder copy —
- * ticket 09 replaces the text, not the shape.
+ * RapiNexa as a team. Highlighted phrases remain plain content segments.
  */
 export const PROFILE: ProfileContent = {
-  eyebrow: "Profil Singkat",
+  eyebrow: "Kenali RapiNexa",
   statement: [
-    { text: "RapiNexa adalah " },
-    { text: "tim developer software", highlight: true },
-    { text: " yang membantu UMKM Indonesia go digital lewat " },
+    { text: "Kami adalah RapiNexa, " },
+    { text: "tim pengembang solusi digital untuk UMKM", highlight: true },
+    { text: ". Kami membantu Anda " },
     {
-      text: "website, POS kasir, automasi sederhana, dan Video Shorts/Reels",
+      text: "memperkenalkan usaha dan merapikan pekerjaan sehari-hari",
       highlight: true,
     },
     {
-      text: ". Setiap Layanan dikerjakan oleh tim yang sama — bukan freelancer perorangan — supaya kualitas dan dukungan tetap konsisten.",
+      text: ". Ceritakan kebutuhan dan anggaran Anda; kami bantu memilih layanan yang paling berguna untuk langkah berikutnya.",
     },
   ],
 };
@@ -309,8 +308,8 @@ export type Service = {
 /**
  * The four Services RapiNexa sells (ticket 05). Facts (prices, options,
  * notes) are fixed per the ticket/spec, sourced from
- * `docs/notebooks/template-proposal-penawaran.md`; copy is placeholder
- * until ticket 09. Changing a price here changes it everywhere the price
+ * `docs/notebooks/template-proposal-penawaran.md`. Changing a price here
+ * changes it everywhere the price
  * is rendered — no component holds its own copy of a number.
  */
 export const SERVICES: Service[] = [
@@ -318,61 +317,61 @@ export const SERVICES: Service[] = [
     id: "website-bisnis",
     name: "Website Bisnis",
     summary:
-      "Website rapi dan mobile-friendly untuk memperkenalkan usaha Anda secara online, dari satu halaman hingga profil lengkap.",
+      "Bantu calon pelanggan mengenal usaha, melihat penawaran, dan menghubungi Anda. Mulai dari landing page satu halaman hingga company profile lengkap.",
     includes: [
-      "Desain rapi & mobile-friendly",
-      "Terhubung langsung ke WhatsApp",
+      "Desain rapi dan nyaman dibuka di ponsel",
+      "Tombol untuk langsung menghubungi WhatsApp usaha Anda",
       "Company Profile All-In: tanpa batas jumlah halaman untuk konten profil standar",
     ],
     startingPrice: 249_000,
-    priceNote: "Domain & hosting dibayar langsung oleh Anda.",
+    priceNote: "Domain dan hosting dibayar langsung oleh Anda agar kepemilikan tetap di tangan Anda.",
     options: [
       { name: "Landing Page", startingPrice: 249_000 },
       { name: "Company Profile All-In", startingPrice: 1_249_000 },
     ],
     whatsappMessage:
-      "Halo RapiNexa, saya tertarik dengan Layanan Website Bisnis (Landing Page / Company Profile All-In). Boleh minta info lebih lanjut?",
+      "Halo RapiNexa, kami tertarik dengan Website Bisnis. Boleh bantu pilih landing page atau company profile yang sesuai kebutuhan dan anggaran kami?",
   },
   {
     id: "video-shorts-reels",
     name: "Video Shorts/Reels",
     summary:
-      "Ubah video panjang, webinar, atau materi edukasi Anda menjadi 5 video vertikal siap TikTok, Instagram Reels, dan YouTube Shorts.",
+      "Punya rekaman panjang yang belum dimanfaatkan? Kami olah video, webinar, atau materi edukasi Anda menjadi 5 video pendek siap dibagikan ke TikTok, Reels, dan Shorts.",
     includes: [
       "5 video vertikal format 9:16",
-      "Pemilihan hook & subtitle rapi",
-      "1x revisi gabungan",
+      "Pemilihan pembuka yang menarik dan teks ucapan yang rapi",
+      "1 kali revisi gabungan",
     ],
     startingPrice: 150_000,
-    priceNote: "Maks. 48 jam pengerjaan.",
+    priceNote: "Waktu pengerjaan maksimal 48 jam.",
     whatsappMessage:
-      "Halo RapiNexa, saya tertarik dengan Layanan Video Shorts/Reels. Boleh minta info lebih lanjut?",
+      "Halo RapiNexa, kami tertarik dengan Video Shorts/Reels. Boleh rekomendasikan pengolahan video yang cocok untuk materi kami?",
   },
   {
     id: "pos-kasir-standard",
-    name: "POS Kasir Standard",
+    name: "POS Kasir Standar",
     summary:
-      "Sistem kasir sederhana untuk Android atau browser komputer, untuk UMKM yang masih mencatat transaksi secara manual.",
-    includes: ["Transaksi kasir untuk Android atau browser", "Daftar produk", "Laporan harian"],
+      "Rapikan penjualan tanpa mencatat ulang di buku. Sistem kasir sederhana untuk Android atau peramban komputer membantu Anda melihat transaksi dan laporan harian.",
+    includes: ["Pencatatan transaksi di Android atau peramban komputer", "Daftar produk", "Laporan penjualan harian"],
     startingPrice: 499_000,
     priceNote: "Sekali bayar, tanpa biaya langganan.",
     whatsappMessage:
-      "Halo RapiNexa, saya tertarik dengan Layanan POS Kasir Standard. Boleh minta info lebih lanjut?",
+      "Halo RapiNexa, kami tertarik dengan POS Kasir Standar. Boleh bantu menilai kecocokannya untuk alur penjualan usaha kami?",
   },
   {
     id: "automation-sederhana",
     name: "Automation Sederhana",
     summary:
-      "Pencatatan pesanan, calon pelanggan, follow-up, atau laporan otomatis ke spreadsheet agar operasional lebih rapi.",
+      "Kurangi pencatatan berulang agar Anda bisa fokus melayani pelanggan. Kami bantu mencatat pesanan, calon pelanggan, tindak lanjut, atau laporan secara otomatis ke lembar kerja.",
     includes: [
-      "Pencatatan otomatis ke spreadsheet",
-      "Pesanan, calon pelanggan, atau follow-up",
-      "Laporan operasional lebih rapi",
+      "Pencatatan otomatis ke lembar kerja",
+      "Alur untuk pesanan, calon pelanggan, tindak lanjut, atau laporan",
+      "Pengaturan sesuai kebutuhan usaha Anda",
     ],
     startingPrice: 150_000,
-    priceNote: "Harga tergantung kebutuhan.",
+    priceNote: "Harga menyesuaikan alur dan kebutuhan pencatatan.",
     whatsappMessage:
-      "Halo RapiNexa, saya tertarik dengan Layanan Automation Sederhana. Boleh minta info lebih lanjut?",
+      "Halo RapiNexa, kami tertarik dengan Automation Sederhana. Boleh rekomendasikan pencatatan yang paling berguna untuk diotomatisasi?",
   },
 ];
 
@@ -389,9 +388,9 @@ export type LayananSectionContent = {
 };
 
 export const LAYANAN_SECTION: LayananSectionContent = {
-  heading: "Layanan Kami",
-  subheading: "Pilih Layanan yang paling sesuai dengan kebutuhan bisnis Anda.",
-  ctaLabel: "Chat via WhatsApp",
+  heading: "Solusi untuk kebutuhan usaha Anda",
+  subheading: "Ingin usaha lebih dikenal atau pekerjaan lebih tertata? Pilih kebutuhan Anda, lalu diskusikan cakupan dan anggarannya bersama kami.",
+  ctaLabel: "Tanya layanan ini",
 };
 
 /** One Service referenced from the Bundle, with its own quantity/notes. */
@@ -424,17 +423,17 @@ export const BUNDLE: Bundle = {
   name: "Paket Digital UMKM",
   price: 1_499_000,
   includes: [
-    { serviceId: "website-bisnis", note: "1x landing page" },
-    { serviceId: "video-shorts-reels", note: "5x Video Shorts/Reels" },
-    { serviceId: "pos-kasir-standard", note: "1x POS Kasir Standard" },
-    { serviceId: "automation-sederhana", note: "1x automation sederhana" },
+    { serviceId: "website-bisnis", note: "1 landing page" },
+    { serviceId: "video-shorts-reels", note: "5 video pendek" },
+    { serviceId: "pos-kasir-standard", note: "1 sistem kasir" },
+    { serviceId: "automation-sederhana", note: "1 alur pencatatan otomatis" },
   ],
   summary:
-    "Ambil landing page, Video Shorts/Reels, POS Kasir Standard, dan automation sederhana sekaligus dengan harga lebih hemat.",
+    "Siapkan tampilan usaha dan pencatatan harian dalam satu paket: landing page, video pendek, sistem kasir, dan satu alur pencatatan otomatis, dikerjakan oleh tim kami.",
   reassurance:
-    "Tidak perlu ambil semuanya — tim RapiNexa bisa bantu pilih Layanan yang paling relevan untuk usaha Anda.",
+    "Tidak perlu mengambil semuanya. Kami bantu memilih layanan yang paling relevan dan hemat sesuai kebutuhan serta anggaran usaha Anda.",
   whatsappMessage:
-    "Halo RapiNexa, saya tertarik dengan Paket Digital UMKM. Boleh minta info lebih lanjut?",
+    "Halo RapiNexa, kami tertarik dengan Paket Digital UMKM. Boleh bantu menilai apakah paket ini sesuai kebutuhan dan anggaran usaha kami?",
 };
 
 export type BundleSectionContent = {
@@ -444,8 +443,8 @@ export type BundleSectionContent = {
 };
 
 export const BUNDLE_SECTION: BundleSectionContent = {
-  heading: "Bundle Hemat",
-  ctaLabel: "Chat via WhatsApp",
+  heading: "Satu paket, satu tim",
+  ctaLabel: "Diskusikan paket ini",
 };
 
 /**
@@ -480,14 +479,14 @@ export type Work = {
  * "add a third Work" acceptance check exercises exactly this. Facts are
  * sourced from `docs/projects/DJAMPI_JAWI_POS_PORTFOLIO.md`,
  * `DJAMPI_JAWI_PANEL_PORTFOLIO.md`, and the `ELLA_*_PORTFOLIO.md` docs;
- * copy is placeholder until ticket 09.
+ * summaries describe supported outcomes without unverified metrics.
  */
 export const WORKS: Work[] = [
   {
     client: "Djampi Jawi",
     summary:
-      "Operasional kasir dan produksi jamu Djampi Jawi kini tercatat rapi dan real-time di semua cabang, dari transaksi di kasir sampai laporan tutup shift.",
-    deliverables: ["POS Kasir", "Panel Admin"],
+      "Transaksi, pesanan, stok, dan produksi jamu Djampi Jawi lebih mudah dipantau lintas cabang. Sistem kasir dan panel pengelolaan membantu pencatatan dari pesanan masuk hingga laporan akhir giliran kerja.",
+    deliverables: ["POS Kasir", "Panel Pengelolaan Usaha"],
     platforms: ["react-native", "laravel"],
     screenshots: [
       "/assets/screenshots/djampi-jawi-pos-1.jpg",
@@ -499,8 +498,8 @@ export const WORKS: Work[] = [
   {
     client: "Ella Skin Care",
     summary:
-      "Website, arsip dokumen, dan tiket work order Ella Skin Care terhubung dalam satu sistem, memudahkan tim pusat dan cabang bekerja tanpa bolak-balik spreadsheet.",
-    deliverables: ["Website & CMS", "API", "Arsip Dokumen", "Tiket Work Order"],
+      "Website Ella Skin Care membantu pelanggan mengenal perawatan, produk, promo, dan lokasi klinik. Pengelolaan konten, arsip dengan pengingat masa berlaku, serta tiket perbaikan dan pengadaan membantu operasional cabang lebih tertata.",
+    deliverables: ["Website dan Pengelolaan Konten", "Integrasi Sistem", "Arsip Dokumen", "Tiket Perbaikan dan Pengadaan"],
     screenshots: ["/assets/screenshots/ella-skin-care.png"],
     initials: "ES",
   },
@@ -512,8 +511,8 @@ export type KaryaSectionContent = {
 };
 
 export const KARYA_SECTION: KaryaSectionContent = {
-  heading: "Karya Kami",
-  subheading: "Sebagian Karya yang sudah kami kerjakan untuk Client di berbagai industri.",
+  heading: "Karya untuk usaha nyata",
+  subheading: "Dari transaksi harian hingga informasi untuk pelanggan, berikut solusi yang kami kerjakan untuk membantu bisnis klien berjalan lebih rapi.",
 };
 
 export type CtaContent = {
@@ -528,9 +527,9 @@ export type CtaContent = {
  * Footer, inviting them to chat on WhatsApp.
  */
 export const CTA: CtaContent = {
-  heading: "Siap bantu usaha Anda go digital?",
-  body: "Chat langsung dengan tim RapiNexa untuk konsultasi gratis soal Layanan yang paling cocok untuk usaha Anda.",
-  ctaLabel: "Chat via WhatsApp",
+  heading: "Mulai dari kebutuhan usaha Anda",
+  body: "Ceritakan pekerjaan yang ingin dirapikan atau penawaran yang ingin dikenalkan. Kami bantu pilih langkah yang sesuai kebutuhan dan anggaran Anda lewat konsultasi awal tanpa biaya.",
+  ctaLabel: "Diskusi lewat WhatsApp",
   ctaMessage:
-    "Halo RapiNexa, saya ingin konsultasi soal layanan digital untuk usaha saya.",
+    "Halo RapiNexa, boleh minta rekomendasi layanan digital yang sesuai dengan kebutuhan dan anggaran usaha kami?",
 };
