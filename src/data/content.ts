@@ -262,6 +262,190 @@ export const PROFILE: ProfileContent = {
   ],
 };
 
+/**
+ * One Website-bisnis-only pricing option (ticket 05: Landing Page vs
+ * Company Profile All-In). Both fields are required — an option without its
+ * own Starting price would be meaningless, so there's no optional escape
+ * hatch here.
+ */
+export type ServiceOption = {
+  name: string;
+  startingPrice: number;
+};
+
+/**
+ * A productized offering RapiNexa sells (CONTEXT.md: Service). `id` is a
+ * stable slug reused as the WhatsApp CTA's `source: service:<id>` and as
+ * the Bundle's `includes[].serviceId` reference — renaming it is a breaking
+ * change for both.
+ *
+ * `startingPrice` is required even for Website bisnis, which also carries
+ * `options`: it's the headline "mulai dari" figure (the cheaper option's
+ * price) for anywhere a single number is needed, while `options` drives the
+ * two-line breakdown on the card itself. Every other Service has no
+ * `options` and renders `startingPrice` alone.
+ *
+ * All fields but `priceNote` and `options` are required by design: a
+ * Service entry missing `whatsappMessage` or `startingPrice` must fail
+ * `yarn typecheck`, not silently render as `undefined` (spec "Testing
+ * Decisions" / ticket 05 acceptance criteria).
+ */
+export type Service = {
+  id: string;
+  name: string;
+  summary: string;
+  /** Short bullet list of what's included, rendered as-is (no markup). */
+  includes: string[];
+  startingPrice: number;
+  /** e.g. "sekali bayar, tanpa biaya langganan", "maks. 48 jam". */
+  priceNote?: string;
+  /** Website-bisnis-only: Landing Page vs Company Profile All-In. */
+  options?: ServiceOption[];
+  whatsappMessage: string;
+};
+
+/**
+ * The four Services RapiNexa sells (ticket 05). Facts (prices, options,
+ * notes) are fixed per the ticket/spec, sourced from
+ * `docs/notebooks/template-proposal-penawaran.md`; copy is placeholder
+ * until ticket 09. Changing a price here changes it everywhere the price
+ * is rendered — no component holds its own copy of a number.
+ */
+export const SERVICES: Service[] = [
+  {
+    id: "website-bisnis",
+    name: "Website Bisnis",
+    summary:
+      "Website rapi dan mobile-friendly untuk memperkenalkan usaha Anda secara online, dari satu halaman hingga profil lengkap.",
+    includes: [
+      "Desain rapi & mobile-friendly",
+      "Terhubung langsung ke WhatsApp",
+      "Company Profile All-In: tanpa batas jumlah halaman untuk konten profil standar",
+    ],
+    startingPrice: 249_000,
+    priceNote: "Domain & hosting dibayar langsung oleh Anda.",
+    options: [
+      { name: "Landing Page", startingPrice: 249_000 },
+      { name: "Company Profile All-In", startingPrice: 1_249_000 },
+    ],
+    whatsappMessage:
+      "Halo RapiNexa, saya tertarik dengan Layanan Website Bisnis (Landing Page / Company Profile All-In). Boleh minta info lebih lanjut?",
+  },
+  {
+    id: "video-shorts-reels",
+    name: "Video Shorts/Reels",
+    summary:
+      "Ubah video panjang, webinar, atau materi edukasi Anda menjadi 5 video vertikal siap TikTok, Instagram Reels, dan YouTube Shorts.",
+    includes: [
+      "5 video vertikal format 9:16",
+      "Pemilihan hook & subtitle rapi",
+      "1x revisi gabungan",
+    ],
+    startingPrice: 150_000,
+    priceNote: "Maks. 48 jam pengerjaan.",
+    whatsappMessage:
+      "Halo RapiNexa, saya tertarik dengan Layanan Video Shorts/Reels. Boleh minta info lebih lanjut?",
+  },
+  {
+    id: "pos-kasir-standard",
+    name: "POS Kasir Standard",
+    summary:
+      "Sistem kasir sederhana untuk Android atau browser komputer, untuk UMKM yang masih mencatat transaksi secara manual.",
+    includes: ["Transaksi kasir untuk Android atau browser", "Daftar produk", "Laporan harian"],
+    startingPrice: 499_000,
+    priceNote: "Sekali bayar, tanpa biaya langganan.",
+    whatsappMessage:
+      "Halo RapiNexa, saya tertarik dengan Layanan POS Kasir Standard. Boleh minta info lebih lanjut?",
+  },
+  {
+    id: "automation-sederhana",
+    name: "Automation Sederhana",
+    summary:
+      "Pencatatan pesanan, calon pelanggan, follow-up, atau laporan otomatis ke spreadsheet agar operasional lebih rapi.",
+    includes: [
+      "Pencatatan otomatis ke spreadsheet",
+      "Pesanan, calon pelanggan, atau follow-up",
+      "Laporan operasional lebih rapi",
+    ],
+    startingPrice: 150_000,
+    priceNote: "Harga tergantung kebutuhan.",
+    whatsappMessage:
+      "Halo RapiNexa, saya tertarik dengan Layanan Automation Sederhana. Boleh minta info lebih lanjut?",
+  },
+];
+
+/** Looks up a single Service by id, e.g. for resolving a Bundle's `includes`. */
+export function getServiceById(id: string): Service | undefined {
+  return SERVICES.find((service) => service.id === id);
+}
+
+export type LayananSectionContent = {
+  heading: string;
+  subheading?: string;
+  /** Shared WhatsApp button label for every Service card. */
+  ctaLabel: string;
+};
+
+export const LAYANAN_SECTION: LayananSectionContent = {
+  heading: "Layanan Kami",
+  subheading: "Pilih Layanan yang paling sesuai dengan kebutuhan bisnis Anda.",
+  ctaLabel: "Chat via WhatsApp",
+};
+
+/** One Service referenced from the Bundle, with its own quantity/notes. */
+export type BundleInclude = {
+  serviceId: string;
+  /** e.g. "1x landing page", "5x Video Shorts/Reels". */
+  note: string;
+};
+
+/**
+ * A named combination of Services sold at one fixed price (CONTEXT.md:
+ * Bundle). Unlike a Service, `price` is not a Starting price — it's rendered
+ * with `formatRupiah` alone, never `formatStartingPrice`.
+ */
+export type Bundle = {
+  name: string;
+  price: number;
+  includes: BundleInclude[];
+  summary: string;
+  /** The "you don't need to buy everything" reassurance line. */
+  reassurance: string;
+  whatsappMessage: string;
+};
+
+/**
+ * The only Bundle RapiNexa currently sells (ticket 05). `includes`
+ * references `SERVICES` ids — resolve names via `getServiceById`.
+ */
+export const BUNDLE: Bundle = {
+  name: "Paket Digital UMKM",
+  price: 1_499_000,
+  includes: [
+    { serviceId: "website-bisnis", note: "1x landing page" },
+    { serviceId: "video-shorts-reels", note: "5x Video Shorts/Reels" },
+    { serviceId: "pos-kasir-standard", note: "1x POS Kasir Standard" },
+    { serviceId: "automation-sederhana", note: "1x automation sederhana" },
+  ],
+  summary:
+    "Ambil landing page, Video Shorts/Reels, POS Kasir Standard, dan automation sederhana sekaligus dengan harga lebih hemat.",
+  reassurance:
+    "Tidak perlu ambil semuanya — tim RapiNexa bisa bantu pilih Layanan yang paling relevan untuk usaha Anda.",
+  whatsappMessage:
+    "Halo RapiNexa, saya tertarik dengan Paket Digital UMKM. Boleh minta info lebih lanjut?",
+};
+
+export type BundleSectionContent = {
+  /** Eyebrow label above the Bundle card, distinct from `BUNDLE.name`. */
+  heading: string;
+  ctaLabel: string;
+};
+
+export const BUNDLE_SECTION: BundleSectionContent = {
+  heading: "Bundle Hemat",
+  ctaLabel: "Chat via WhatsApp",
+};
+
 export type CtaContent = {
   heading: string;
   body: string;
