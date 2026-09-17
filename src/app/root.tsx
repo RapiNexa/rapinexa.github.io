@@ -22,6 +22,8 @@ export const links: Route.LinksFunction = () => [
     href: "https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Manrope:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap",
   },
   { rel: "icon", href: "/favicon.ico" },
+  { rel: "icon", type: "image/png", sizes: "512x512", href: "/icon-512.png" },
+  { rel: "apple-touch-icon", sizes: "180x180", href: "/apple-touch-icon.png" },
 ];
 
 export function Layout({ children }: { children: React.ReactNode }) {
@@ -36,6 +38,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <meta property="og:title" content={SITE_META.ogTitle} />
         <meta property="og:description" content={SITE_META.ogDescription} />
         <meta property="og:image" content={SITE_META.ogImage} />
+        <meta property="og:url" content={SITE_META.ogUrl} />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content={SITE_META.ogTitle} />
         <meta name="twitter:description" content={SITE_META.ogDescription} />
