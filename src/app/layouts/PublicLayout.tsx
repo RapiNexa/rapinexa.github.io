@@ -1,13 +1,13 @@
 import { Outlet } from "react-router";
 import { useTheme } from "../hooks/useTheme";
-import ThemeToggle from "../components/ThemeToggle";
+import Navbar from "../components/Navbar";
+import Footer from "../components/Footer";
 
 /**
  * Wraps every public route. Applies the persisted theme to <html> and
- * renders the themed page background. Navbar/Footer/Starfield are added by
- * the page-frame ticket (03/05) — this ticket only needs the themed shell
- * around the placeholder Hero, plus a standalone theme toggle until the
- * Navbar's own control replaces it.
+ * renders the themed page background plus the always-visible Navbar and
+ * the closing Footer (ticket 03) around whatever the route renders.
+ * Starfield is added by a later page-frame ticket.
  */
 export default function PublicLayout() {
   useTheme();
@@ -23,8 +23,9 @@ export default function PublicLayout() {
         overflowX: "hidden",
       }}
     >
-      <ThemeToggle />
+      <Navbar />
       <Outlet />
+      <Footer />
     </div>
   );
 }
