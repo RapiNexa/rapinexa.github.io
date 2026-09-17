@@ -36,7 +36,7 @@ function getSocialLinks(): SocialLink[] {
 
 /**
  * Site Footer (ticket 03): wordmark (same live-text gold treatment as the
- * Navbar, with the same reserved logo slot), the service-area line, a
+ * Navbar, with the same RapiNexa mark from ticket 08 beside it), the service-area line, a
  * `WhatsAppButton` (`source: footer`), and social/contact icons driven by
  * `config.json` — rendered only when their value is non-empty.
  *
@@ -51,17 +51,21 @@ export default function Footer() {
       <div className="mx-auto" style={{ maxWidth: 1280, padding: "44px clamp(20px,5vw,40px) 40px" }}>
         <div className="flex flex-wrap items-center justify-between gap-6">
           <div className="flex items-center gap-3">
-            <div
-              aria-hidden="true"
-              data-logo-slot
-              style={{
-                width: 44,
-                height: 44,
-                borderRadius: 12,
-                border: "1px dashed var(--border)",
-                flexShrink: 0,
-              }}
-            />
+            <picture>
+              <source srcSet="/assets/brand/rapinexa-mark.webp" type="image/webp" />
+              <img
+                src="/assets/brand/rapinexa-mark.png"
+                alt=""
+                width={44}
+                height={44}
+                style={{
+                  width: 44,
+                  height: 44,
+                  objectFit: "contain",
+                  flexShrink: 0,
+                }}
+              />
+            </picture>
             <div>
               <div
                 style={{

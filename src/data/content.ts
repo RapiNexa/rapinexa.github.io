@@ -30,6 +30,7 @@ export type SiteMeta = {
   ogTitle: string;
   ogDescription: string;
   ogImage: string;
+  ogUrl: string;
 };
 
 export const SITE_META: SiteMeta = {
@@ -39,7 +40,8 @@ export const SITE_META: SiteMeta = {
   ogTitle: "RapiNexa — Solusi Digital untuk UMKM",
   ogDescription:
     "Layanan digital untuk UMKM Indonesia: website, POS kasir, automasi sederhana, dan Video Shorts/Reels.",
-  ogImage: "/assets/brand/rapinexa-mark.png",
+  ogImage: "https://rapinexa.github.io/assets/brand/og-image.png",
+  ogUrl: "https://rapinexa.github.io/",
 };
 
 export type HeroContent = {

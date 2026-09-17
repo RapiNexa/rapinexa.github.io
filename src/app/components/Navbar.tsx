@@ -21,8 +21,8 @@ function scrollToSection(id: SectionId) {
 }
 
 /**
- * Always-visible site Navbar (ticket 03): gold "RapiNexa" wordmark with a
- * reserved slot for ticket 08's logo mark, in-page anchor links to
+ * Always-visible site Navbar (ticket 03): gold "RapiNexa" wordmark with the
+ * RapiNexa mark (ticket 08) beside it, in-page anchor links to
  * Layanan/Karya/Platform, the theme toggle, and a `WhatsAppButton`
  * (`source: navbar`). At phone width the links/toggle/WhatsApp button move
  * into a hamburger-triggered mobile drawer instead of the desktop row.
@@ -67,20 +67,25 @@ export default function Navbar() {
             height: 74,
           }}
         >
-          {/* Wordmark: live text in the gold token, not an image. The
-              empty slot beside it is reserved for ticket 08's logo mark. */}
+          {/* Wordmark: live text in the gold token, not an image. The mark
+              (ticket 08) sits beside it as a decorative image — the
+              wordmark text is the accessible name for the lockup. */}
           <div className="flex items-center gap-3">
-            <div
-              aria-hidden="true"
-              data-logo-slot
-              style={{
-                width: 40,
-                height: 40,
-                borderRadius: 11,
-                border: "1px dashed var(--border)",
-                flexShrink: 0,
-              }}
-            />
+            <picture>
+              <source srcSet="/assets/brand/rapinexa-mark.webp" type="image/webp" />
+              <img
+                src="/assets/brand/rapinexa-mark.png"
+                alt=""
+                width={40}
+                height={40}
+                style={{
+                  width: 40,
+                  height: 40,
+                  objectFit: "contain",
+                  flexShrink: 0,
+                }}
+              />
+            </picture>
             <span
               style={{
                 fontFamily: "var(--font-display)",
