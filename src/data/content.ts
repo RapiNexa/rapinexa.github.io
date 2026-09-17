@@ -478,7 +478,7 @@ export type Work = {
  * an additional Karya card with no component change — the ticket's
  * "add a third Work" acceptance check exercises exactly this. Facts are
  * sourced from `docs/projects/DJAMPI_JAWI_POS_PORTFOLIO.md`,
- * `DJAMPI_JAWI_PANEL_PORTFOLIO.md`, and the `ELLA_*_PORTFOLIO.md` docs;
+ * `DJAMPI_JAWI_PANEL_PORTFOLIO.md`, and `MOMENT_STOCKIST_PORTFOLIO.md`;
  * summaries describe supported outcomes without unverified metrics.
  */
 export const WORKS: Work[] = [
@@ -496,12 +496,12 @@ export const WORKS: Work[] = [
     initials: "DJ",
   },
   {
-    client: "Ella Skin Care",
+    client: "Moment Stockist",
     summary:
-      "Website Ella Skin Care membantu pelanggan mengenal perawatan, produk, promo, dan lokasi klinik. Pengelolaan konten, arsip dengan pengingat masa berlaku, serta tiket perbaikan dan pengadaan membantu operasional cabang lebih tertata.",
-    deliverables: ["Website dan Pengelolaan Konten", "Integrasi Sistem", "Arsip Dokumen", "Tiket Perbaikan dan Pengadaan"],
-    screenshots: ["/assets/screenshots/ella-skin-care.png"],
-    initials: "ES",
+      "Toko online Moment Stockist membantu pelanggan mengenal produk suplemen dan berbelanja dari katalog hingga penyelesaian pesanan. Pelanggan dapat menyimpan alamat pengiriman dan melihat riwayat pesanan lewat akun mereka.",
+    deliverables: ["Toko Online"],
+    screenshots: ["/assets/screenshots/moment-stockist-1.png"],
+    initials: "MS",
   },
 ];
 
