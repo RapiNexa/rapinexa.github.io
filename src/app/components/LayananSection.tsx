@@ -1,6 +1,8 @@
 import { LAYANAN_SECTION, SECTION_IDS, SERVICES, type Service } from "src/data/content";
 import { formatStartingPrice } from "src/lib/currency";
 import WhatsAppButton from "./WhatsAppButton";
+import type { BaseProps } from "src/types/utilities";
+import clsx from "clsx";
 
 /**
  * Layanan section (ticket 05): one card per Service, sourced entirely from
@@ -45,26 +47,30 @@ export default function LayananSection() {
       </div>
 
       <ul
+        className="grid grid-cols-12 gap-5"
         style={{
-          display: "grid",
-          gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))",
-          gap: 20,
+          justifyContent: "center",
           margin: 0,
           padding: 0,
         }}
       >
-        {SERVICES.map((service) => (
-          <ServiceCard key={service.id} service={service} />
+        {SERVICES.map((service, index) => (
+          <li key={service.id} className={clsx([
+            "lg:col-span-4 md:col-span-5 sm:col-span-6 col-span-12",
+            (index + 1) % 2 === 1 && "lg:col-start-3 md:col-start-2"
+          ])}>
+            <ServiceCard className="min-h-full" service={service} />
+          </li>
         ))}
       </ul>
     </section>
   );
 }
 
-function ServiceCard({ service }: { service: Service }) {
+function ServiceCard({ className, service }: BaseProps & { service: Service }) {
   return (
-    <li
-      className="flex flex-col"
+    <div
+      className={clsx(["flex flex-col", className])}
       style={{
         listStyle: "none",
         border: "1px solid var(--border)",
@@ -157,6 +163,6 @@ function ServiceCard({ service }: { service: Service }) {
         variant="secondary"
         className="justify-center"
       />
-    </li>
+    </div>
   );
 }
