@@ -1,0 +1,17 @@
+{
+  "name": "rapinexa-company-profile",
+  "displayName": "RapiNexa",
+
+  "STORAGE_ID": "rapinexa",
+  "STORAGE_KEY": "rapinexa.debug",
+
+  "experiments": [],
+
+  "whatsapp_url": "https://wa.me/62123456789",
+
+  "social_github": "https://github.com/RapiNexa",
+  "social_instagram": "",
+  "social_tiktok": "",
+  "social_linkedin": "",
+  "contact_email": ""
+}
