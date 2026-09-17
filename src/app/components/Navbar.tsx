@@ -92,7 +92,6 @@ export default function Navbar() {
                 fontWeight: 700,
                 fontSize: 19,
                 letterSpacing: 0.2,
-                color: "var(--gold)",
               }}
             >
               {WORDMARK}
