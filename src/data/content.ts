@@ -3,9 +3,9 @@
  * from here instead of holding its own strings, so copywriting (ticket 09)
  * and data updates never require touching component code.
  *
- * Ticket 01 seeded site meta and the Hero. Ticket 02 adds Platforms. Later
- * tickets extend this module with Profile, Services, Bundle, Works, and the
- * remaining section headings — add new exports here rather than starting a
+ * Ticket 01 seeded site meta and the Hero. Ticket 02 adds Platforms. Ticket
+ * 03 adds Navbar/Footer. Later tickets extend this module with Profile,
+ * Services, Bundle, and Works — add new exports here rather than starting a
  * second content module.
  */
 
@@ -148,4 +148,61 @@ export const PLATFORM_SECTION: PlatformSectionContent = {
   heading: "Platform yang kami dukung",
   subheading:
     "Sebagian teknologi dan layanan pihak ketiga yang bisa RapiNexa integrasikan ke dalam Layanan Anda.",
+};
+
+/**
+ * "RapiNexa" rendered as live text (not an image) in the display font using
+ * the gold token — the Navbar and Footer wordmark. Ticket 08 adds an image
+ * logo mark next to it; both components already reserve an empty slot for
+ * that mark so this stays a copy-only change.
+ */
+export const WORDMARK = "RapiNexa";
+
+export type NavLink = {
+  /** One of `SECTION_IDS` — the anchor the link smooth-scrolls to. */
+  id: SectionId;
+  label: string;
+};
+
+export type NavbarContent = {
+  links: NavLink[];
+  whatsappLabel: string;
+  whatsappMessage: string;
+  themeToggleLabel: string;
+  menuOpenLabel: string;
+  menuCloseLabel: string;
+};
+
+/**
+ * Navbar copy (ticket 03). `links` order is the render order for both the
+ * desktop nav and the mobile drawer. Layanan and Karya don't have rendered
+ * sections yet (tickets 05/06) — the Navbar must scroll to them gracefully
+ * without throwing once they exist, and no-op safely until then.
+ */
+export const NAVBAR: NavbarContent = {
+  links: [
+    { id: SECTION_IDS.layanan, label: "Layanan" },
+    { id: SECTION_IDS.karya, label: "Karya" },
+    { id: SECTION_IDS.platform, label: "Platform" },
+  ],
+  whatsappLabel: "Chat WhatsApp",
+  whatsappMessage:
+    "Halo RapiNexa, saya ingin tanya-tanya soal layanan digital untuk usaha saya.",
+  themeToggleLabel: "Ganti tema",
+  menuOpenLabel: "Buka menu",
+  menuCloseLabel: "Tutup menu",
+};
+
+export type FooterContent = {
+  /** Exact, decided copy — CONTEXT.md/spec: "Melayani seluruh Indonesia". */
+  serviceArea: string;
+  whatsappLabel: string;
+  whatsappMessage: string;
+};
+
+export const FOOTER: FooterContent = {
+  serviceArea: "Melayani seluruh Indonesia",
+  whatsappLabel: "Chat WhatsApp",
+  whatsappMessage:
+    "Halo RapiNexa, saya ingin tanya-tanya soal layanan digital untuk usaha saya.",
 };

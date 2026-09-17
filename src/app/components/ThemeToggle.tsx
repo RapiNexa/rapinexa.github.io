@@ -1,9 +1,11 @@
 import { useTheme } from "../hooks/useTheme";
+import { NAVBAR } from "src/data/content";
 
 /**
- * Minimal, standalone theme toggle. Ticket 01 needs a working, user-facing
- * way to switch themes before the full Navbar exists — ticket 03 replaces
- * this fixed button with the Navbar's own theme control.
+ * Theme toggle button. Ticket 01 rendered this as a standalone
+ * `position: fixed` control before the Navbar existed; ticket 03 embeds it
+ * directly into the Navbar's desktop row and mobile drawer instead, so it
+ * no longer self-positions — its container decides placement.
  */
 export default function ThemeToggle() {
   const { isDark, toggle } = useTheme();
@@ -11,12 +13,8 @@ export default function ThemeToggle() {
   return (
     <button
       onClick={toggle}
-      aria-label="Ganti tema"
+      aria-label={NAVBAR.themeToggleLabel}
       style={{
-        position: "fixed",
-        top: 20,
-        right: 20,
-        zIndex: 50,
         width: 40,
         height: 40,
         borderRadius: 11,
@@ -27,6 +25,7 @@ export default function ThemeToggle() {
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
+        flexShrink: 0,
         transition: "background .25s ease",
       }}
     >
