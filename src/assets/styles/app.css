@@ -62,6 +62,22 @@ body {
   --gold-soft: rgba(168, 121, 31, 0.16);
 }
 
+/* ── Hero / HeroOrbit / ProfileSection animations ──
+   Ported from docs/reactjs/src/assets/styles/app.css: the orbit ring spin
+   (and its counter-spin, so chip labels stay upright), the Hero's
+   fade-up/type-in entrance, HeroOrbit's floaty idle drift, and the glow
+   halo's pulse. Used by Hero.tsx and HeroOrbit.tsx. */
+@keyframes spin { to { transform: rotate(360deg); } }
+@keyframes spin-rev { to { transform: rotate(-360deg); } }
+@keyframes fade-up { from { opacity: 0; transform: translateY(26px); } to { opacity: 1; transform: none; } }
+@keyframes floaty { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-12px); } }
+@keyframes pulse-glow { 0%,100% { opacity: 0.4; } 50% { opacity: 0.85; } }
+@keyframes time-walk {
+  0% { opacity: 0; transform: translateX(-46px); text-shadow: 24px 0 rgba(167,139,250,0.5), 46px 0 rgba(167,139,250,0.22), 68px 0 rgba(167,139,250,0.1); }
+  55% { opacity: 1; }
+  100% { opacity: 1; transform: translateX(0); text-shadow: 0 0 0 rgba(167,139,250,0); }
+}
+
 /* ── Platform section ──
    Each tile sets --platform-brand inline (Platform.brandColor, or the
    purple accent as a default for neutral/monochrome marks). Logos render

@@ -48,6 +48,8 @@ export type HeroContent = {
   subheadline: string;
   ctaLabel: string;
   ctaMessage: string;
+  /** Small label inside the HeroOrbit's core, e.g. "Tim Digital". */
+  orbitLabel: string;
 };
 
 export const HERO: HeroContent = {
@@ -58,6 +60,7 @@ export const HERO: HeroContent = {
   ctaLabel: "Chat via WhatsApp",
   ctaMessage:
     "Halo RapiNexa, saya ingin tanya-tanya soal layanan digital untuk usaha saya.",
+  orbitLabel: "Tim Digital",
 };
 
 /**
@@ -139,6 +142,22 @@ export function getPlatformsByIds(ids: readonly string[]): Platform[] {
     .filter((platform): platform is Platform => platform !== undefined);
 }
 
+/**
+ * The Platform selection shown as HeroOrbit chips (ticket 04) — ids into
+ * `PLATFORMS`, resolved via `getPlatformsByIds`. A curated, recognisable
+ * subset rather than the full showcase list; reordering or swapping ids
+ * here changes the orbit chips with zero component changes.
+ */
+export const HERO_ORBIT_PLATFORM_IDS: string[] = [
+  "laravel",
+  "react",
+  "nextjs",
+  "react-native",
+  "whatsapp",
+  "xendit",
+  "google-sheets",
+];
+
 export type PlatformSectionContent = {
   heading: string;
   subheading?: string;
@@ -205,4 +224,59 @@ export const FOOTER: FooterContent = {
   whatsappLabel: "Chat WhatsApp",
   whatsappMessage:
     "Halo RapiNexa, saya ingin tanya-tanya soal layanan digital untuk usaha saya.",
+};
+
+/**
+ * One segment of the Profil singkat statement. `highlight` marks a phrase
+ * to be rendered in the accent colour — the statement is data, not markup,
+ * so ProfileSection never parses copy for emphasis syntax.
+ */
+export type ProfileStatementSegment = {
+  text: string;
+  highlight?: boolean;
+};
+
+export type ProfileContent = {
+  eyebrow: string;
+  statement: ProfileStatementSegment[];
+};
+
+/**
+ * Profil singkat (ticket 04): a short company statement introducing
+ * RapiNexa as a team, not an individual freelancer. Placeholder copy —
+ * ticket 09 replaces the text, not the shape.
+ */
+export const PROFILE: ProfileContent = {
+  eyebrow: "Profil Singkat",
+  statement: [
+    { text: "RapiNexa adalah " },
+    { text: "tim developer software", highlight: true },
+    { text: " yang membantu UMKM Indonesia go digital lewat " },
+    {
+      text: "website, POS kasir, automasi sederhana, dan Video Shorts/Reels",
+      highlight: true,
+    },
+    {
+      text: ". Setiap Layanan dikerjakan oleh tim yang sama — bukan freelancer perorangan — supaya kualitas dan dukungan tetap konsisten.",
+    },
+  ],
+};
+
+export type CtaContent = {
+  heading: string;
+  body: string;
+  ctaLabel: string;
+  ctaMessage: string;
+};
+
+/**
+ * Closing CTA section (ticket 04): the last thing a visitor sees before the
+ * Footer, inviting them to chat on WhatsApp.
+ */
+export const CTA: CtaContent = {
+  heading: "Siap bantu usaha Anda go digital?",
+  body: "Chat langsung dengan tim RapiNexa untuk konsultasi gratis soal Layanan yang paling cocok untuk usaha Anda.",
+  ctaLabel: "Chat via WhatsApp",
+  ctaMessage:
+    "Halo RapiNexa, saya ingin konsultasi soal layanan digital untuk usaha saya.",
 };
