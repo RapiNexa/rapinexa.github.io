@@ -281,8 +281,7 @@ export type ServiceOption = {
  *
  * All fields but `priceNote` and `options` are required by design: a
  * Service entry missing `whatsappMessage` or `startingPrice` must fail
- * `yarn typecheck`, not silently render as `undefined` (spec "Testing
- * Decisions" / ticket 05 acceptance criteria).
+ * `yarn typecheck`, not silently render as `undefined`.
  */
 export type Service = {
   id: string;
