@@ -1,12 +1,7 @@
 /**
  * RapiNexa's typed content layer. Every section component imports its copy
- * from here instead of holding its own strings, so copywriting (ticket 09)
+ * from here instead of holding its own strings, so copywriting
  * and data updates never require touching component code.
- *
- * Ticket 01 seeded site meta and the Hero. Ticket 02 adds Platforms. Ticket
- * 03 adds Navbar/Footer. Ticket 05 adds Profile, Services, and the Bundle.
- * Ticket 06 adds Works. Later tickets extend this module further — add new
- * exports here rather than starting a second content module.
  */
 
 import type { IconType } from "react-icons";
@@ -66,8 +61,8 @@ export const HERO: HeroContent = {
 };
 
 /**
- * Section anchor ids shared by the Navbar (ticket 03) and the Layanan/Karya/
- * Platform sections (tickets 05/06/02) so every in-page link and heading
+ * Section anchor ids shared by the Navbar and the Layanan/Karya/
+ * Platform sections so every in-page link and heading
  * agrees on the same id.
  */
 export const SECTION_IDS = {
@@ -85,7 +80,7 @@ export type SectionId = (typeof SECTION_IDS)[keyof typeof SECTION_IDS];
  * text label using `name`.
  *
  * `id` is a stable slug: Works reference Platforms by id (optional
- * `platforms` field, ticket 06/07) and the Hero orbit (ticket 04) picks a
+ * `platforms` field) and the Hero orbit picks a
  * subset by id via `getPlatformsByIds`.
  */
 export type Platform = {
@@ -134,8 +129,7 @@ export const PLATFORMS: Platform[] = [
 
 /**
  * Looks up Platforms by id, preserving `ids`' order and silently dropping
- * unknown ids. Exported for ticket 04's Hero orbit, which renders a
- * selection of Platforms rather than the full list.
+ * unknown ids.
  */
 export function getPlatformsByIds(ids: readonly string[]): Platform[] {
   const byId = new Map(PLATFORMS.map((platform) => [platform.id, platform] as const));
@@ -145,7 +139,7 @@ export function getPlatformsByIds(ids: readonly string[]): Platform[] {
 }
 
 /**
- * The Platform selection shown as HeroOrbit chips (ticket 04) — ids into
+ * The Platform selection shown as HeroOrbit chips — ids into
  * `PLATFORMS`, resolved via `getPlatformsByIds`. A curated, recognisable
  * subset rather than the full showcase list; reordering or swapping ids
  * here changes the orbit chips with zero component changes.
@@ -195,7 +189,7 @@ export type NavbarContent = {
 };
 
 /**
- * Navbar copy (ticket 03). `links` order is the render order for both the
+ * Navbar copy. `links` order is the render order for both the
  * desktop nav and the mobile drawer. Layanan and Karya don't have rendered
  * sections yet (tickets 05/06) — the Navbar must scroll to them gracefully
  * without throwing once they exist, and no-op safely until then.
@@ -448,7 +442,7 @@ export const BUNDLE_SECTION: BundleSectionContent = {
 
 /**
  * Everything RapiNexa delivered for one Client (CONTEXT.md: Work), shown as
- * proof of capability (ticket 06). Deliberately has **no** `period`, `role`,
+ * proof of capability. Deliberately has **no** `period`, `role`,
  * `title`, or `department` field — the reference project's FeaturedProjects
  * carried all four, and the spec ("Content layer") requires that adding one
  * back fails `yarn typecheck`. This is a plain object type (not a
@@ -473,7 +467,7 @@ export type Work = {
 };
 
 /**
- * RapiNexa's Works (ticket 06), one per Client. Adding an entry here renders
+ * RapiNexa's Works, one per Client. Adding an entry here renders
  * an additional Karya card with no component change — the ticket's
  * "add a third Work" acceptance check exercises exactly this. Facts are
  * sourced from `docs/projects/DJAMPI_JAWI_POS_PORTFOLIO.md`,
@@ -522,7 +516,7 @@ export type CtaContent = {
 };
 
 /**
- * Closing CTA section (ticket 04): the last thing a visitor sees before the
+ * Closing CTA section: the last thing a visitor sees before the
  * Footer, inviting them to chat on WhatsApp.
  */
 export const CTA: CtaContent = {
