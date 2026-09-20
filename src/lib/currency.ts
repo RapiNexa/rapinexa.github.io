@@ -1,11 +1,4 @@
 /**
- * Indonesian-format Rupiah formatting. This is the *only* place a Rupiah
- * amount is turned into a string — Service/Bundle cards call these helpers
- * and never format a `number` inline themselves, so the thousands separator
- * and "mulai dari" wording stay consistent everywhere they're used.
- */
-
-/**
  * Formats a Rupiah amount using Indonesian grouping (period as the
  * thousands separator), e.g. `1499000` -> `"Rp1.499.000"`.
  */
