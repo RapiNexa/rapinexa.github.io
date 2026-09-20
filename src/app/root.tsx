@@ -9,6 +9,7 @@ import {
 import type { Route } from "./+types/root";
 import { SITE_META } from "src/data/content";
 import "../assets/styles/app.css";
+import { useEffect } from "react";
 
 export const links: Route.LinksFunction = () => [
   { rel: "preconnect", href: "https://fonts.googleapis.com" },
@@ -27,6 +28,14 @@ export const links: Route.LinksFunction = () => [
 ];
 
 export function Layout({ children }: { children: React.ReactNode }) {
+  useEffect(() => {
+    try {
+      window.VITE_APP_CONFIG = JSON.parse(`${import.meta.env.VITE_APP_CONFIG}`);
+    } catch (e) {
+      console.error("Failed to parse VITE_APP_CONFIG", import.meta.env.VITE_APP_CONFIG);
+    }
+  }, []);
+
   return (
     <html lang="id">
       <head>
