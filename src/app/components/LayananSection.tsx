@@ -117,20 +117,17 @@ function ServiceCard({ className, service }: BaseProps & { service: Service }) {
         ))}
       </ul>
 
-      <div style={{ marginTop: "auto", display: "flex", flexDirection: "column", gap: 4 }}>
+      <div style={{ marginTop: "auto", display: "flex", flexDirection: "column", gap: 8 }}>
         {service.options ? (
           service.options.map((option) => (
             <div
               key={option.name}
-              className="flex items-baseline justify-between"
-              style={{ gap: 12 }}
+              className="flex flex-col items-start justify-between"
             >
               <span style={{ fontSize: 13, color: "var(--muted)" }}>{option.name}</span>
               <span
+                className="font-mono font-bold text-sm text-accent -mt-px"
                 style={{
-                  fontFamily: "var(--font-mono)",
-                  fontWeight: 700,
-                  fontSize: 14,
                   color: "var(--accent-text)",
                 }}
               >
