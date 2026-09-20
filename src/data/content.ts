@@ -215,7 +215,6 @@ export const NAVBAR: NavbarContent = {
 };
 
 export type FooterContent = {
-  /** Exact, decided copy — CONTEXT.md/spec: "Melayani seluruh Indonesia". */
   serviceArea: string;
   whatsappLabel: string;
   whatsappMessage: string;
@@ -244,7 +243,7 @@ export type ProfileContent = {
 };
 
 /**
- * Profil singkat (ticket 04): a short company statement introducing
+ * Profil singkat: a short company statement introducing
  * RapiNexa as a team. Highlighted phrases remain plain content segments.
  */
 export const PROFILE: ProfileContent = {
