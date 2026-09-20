@@ -12,7 +12,11 @@ import { getConfig } from "./config";
  * @returns The full WhatsApp chat URL
  */
 export function getWhatsAppUrl(message?: string): string {
-  const baseUrl = getConfig("whatsapp_url") as string;
+  const baseUrl = getConfig("whatsapp_url") as string | null;
+
+  if (!baseUrl) {
+    return "#";
+  }
 
   if (!message) {
     return baseUrl;
