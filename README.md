@@ -2,13 +2,13 @@
 
 The public, single-page company profile of RapiNexa — an Indonesian
 software developer team — served as a static site at
-[rapinexa.github.io](https://rapinexa.github.io/). It advertises RapiNexa's
+[rapinexa.biz.id](https://rapinexa.biz.id/). It advertises RapiNexa's
 Services to Indonesian small businesses (UMKM) and showcases past Works to
 earn trust, funnelling visitors into a WhatsApp conversation.
 
-Domain vocabulary (RapiNexa, Service, Starting price, Bundle, Work, Client,
-Deliverable, Platform, CTA) is defined in [CONTEXT.md](CONTEXT.md); the full
-product spec lives under [.scratch/company-profile/](.scratch/company-profile/spec.md).
+Domain vocabulary (RapiNexa, Service line, Website tier, Maintenance
+package, Starting price, Work, Client, Deliverable, Platform, CTA) is defined
+in [CONTEXT.md](CONTEXT.md).
 
 ## Commands
 
@@ -91,8 +91,8 @@ primary brand accent, gold (`--gold`) is the secondary brand token. Fonts
 
 Source stays on `main`; `yarn deploy` publishes the contents of
 `build/client` to the `gh-pages` branch via the `gh-pages` package. GitHub
-Pages must be configured once (by a human) to serve from that branch — see
-`.scratch/company-profile/issues/10-go-live.md`.
+Pages must be configured once to serve from that branch. Pushing to `main`
+also builds and deploys automatically via `.github/workflows/deploy.yml`.
 
 ```bash
 yarn deploy
