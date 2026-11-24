@@ -7,6 +7,25 @@
 import type { IconType } from "react-icons";
 import { FaAws } from "react-icons/fa6";
 import {
+  LuBadgeCheck,
+  LuCircleAlert,
+  LuCode,
+  LuDatabase,
+  LuGauge,
+  LuGlobe,
+  LuHandshake,
+  LuKeyRound,
+  LuLayoutDashboard,
+  LuLink,
+  LuLock,
+  LuMessageCircle,
+  LuReceipt,
+  LuSettings,
+  LuShieldAlert,
+  LuShoppingBag,
+  LuWrench,
+} from "react-icons/lu";
+import {
   SiCloudflare,
   SiFirebase,
   SiGooglecloud,
@@ -18,6 +37,7 @@ import {
   SiWhatsapp,
   SiXendit,
 } from "react-icons/si";
+import { formatRupiah } from "src/lib/currency";
 
 export type SiteMeta = {
   title: string;
@@ -29,14 +49,14 @@ export type SiteMeta = {
 };
 
 export const SITE_META: SiteMeta = {
-  title: "RapiNexa — Solusi Digital untuk UMKM",
+  title: "RapiNexa — Web Developer untuk UMKM dan Bisnis",
   description:
-    "Website, POS kasir, video Shorts/Reels, dan pencatatan otomatis untuk UMKM. Kenali layanan RapiNexa dan diskusikan kebutuhan usaha Anda lewat WhatsApp.",
-  ogTitle: "RapiNexa — Solusi Digital untuk UMKM",
+    "Jasa pembuatan website, aplikasi web, dan perawatan website untuk UMKM dan bisnis. Lihat harga layanan RapiNexa dan konsultasi gratis lewat WhatsApp.",
+  ogTitle: "RapiNexa — Web Developer untuk UMKM dan Bisnis",
   ogDescription:
-    "Bantu pelanggan mengenal usaha Anda dan rapikan operasional bersama RapiNexa. Lihat layanan, harga mulai dari, dan karya kami untuk bisnis Indonesia.",
-  ogImage: "https://rapinexa.github.io/assets/brand/og-image.png",
-  ogUrl: "https://rapinexa.github.io/",
+    "Website, aplikasi web bisnis, maintenance, serta perbaikan dan fitur tambahan. Lihat layanan, harga mulai dari, dan karya RapiNexa.",
+  ogImage: "https://rapinexa.biz.id/assets/brand/og-image.png",
+  ogUrl: "https://rapinexa.biz.id/",
 };
 
 export type HeroContent = {
@@ -50,25 +70,32 @@ export type HeroContent = {
 };
 
 export const HERO: HeroContent = {
-  eyebrow: "Tim digital untuk UMKM",
+  eyebrow: "Web developer untuk UMKM dan bisnis",
   headline: "Usaha Dikenal, Kerja Lebih Rapi",
   subheadline:
-    "Kami bantu usaha Anda tampil lewat website dan video Shorts/Reels, serta merapikan transaksi dan pencatatan dengan POS kasir dan automation sederhana.",
+    "Jasa pembuatan website, aplikasi web, dan perawatan website untuk UMKM dan bisnis.",
   ctaLabel: "Diskusi Lewat WhatsApp",
   ctaMessage:
     "Halo RapiNexa, boleh minta rekomendasi layanan digital yang sesuai dengan kebutuhan dan anggaran usaha kami?",
-  orbitLabel: "Tim Digital",
+  orbitLabel: "Web Developer",
 };
 
 /**
- * Section anchor ids shared by the Navbar and the Layanan/Karya/
- * Platform sections so every in-page link and heading
- * agrees on the same id.
+ * Section anchor ids shared by the Navbar, the Layanan jump menu, and the
+ * sections themselves so every in-page link and heading agrees on the
+ * same id.
  */
 export const SECTION_IDS = {
+  tentang: "tentang",
   layanan: "layanan",
+  website: "website",
+  aplikasi: "aplikasi",
   karya: "karya",
   platform: "platform",
+  maintenance: "maintenance",
+  perbaikan: "perbaikan",
+  caraKerja: "cara-kerja",
+  kenapa: "kenapa",
 } as const;
 
 export type SectionId = (typeof SECTION_IDS)[keyof typeof SECTION_IDS];
@@ -96,10 +123,9 @@ export type Platform = {
  *
  * Icon coverage checked against the installed react-icons@5.7 Simple
  * Icons (`si`) set, falling back to Font Awesome 6 (`fa6`) brand icons,
- * per the ticket. Three Platforms have no icon in either set and render
+ * per the ticket. Two Platforms have no icon in either set and render
  * as text labels: OpenAI (`si` only ships `SiOpenaigym`, not a plain
- * OpenAI mark, in this version), React Native (Simple Icons has no mark
- * distinct from React's), and Midtrans (no Indonesian payment-gateway
+ * OpenAI mark, in this version) and Midtrans (no Indonesian payment-gateway
  * icon in either set). Xendit *does* have a Simple Icons mark
  * (`SiXendit`), despite the ticket flagging it alongside Midtrans as a
  * likely fallback.
@@ -118,7 +144,6 @@ export const PLATFORMS: Platform[] = [
   { id: "cloudflare", name: "Cloudflare", icon: SiCloudflare, brandColor: "#F38020" },
   { id: "laravel", name: "Laravel", icon: SiLaravel, brandColor: "#FF2D20" },
   { id: "react", name: "React", icon: SiReact, brandColor: "#61DAFB" },
-  { id: "react-native", name: "React Native", brandColor: "#61DAFB" },
   { id: "nextjs", name: "Next.js", icon: SiNextdotjs },
   { id: "whatsapp", name: "WhatsApp", icon: SiWhatsapp, brandColor: "#25D366" },
   { id: "google-sheets", name: "Google Sheets", icon: SiGooglesheets, brandColor: "#0F9D58" },
@@ -148,21 +173,33 @@ export const HERO_ORBIT_PLATFORM_IDS: string[] = [
   "laravel",
   "react",
   "nextjs",
-  "react-native",
+  "firebase",
   "whatsapp",
   "xendit",
   "google-sheets",
 ];
 
-export type PlatformSectionContent = {
-  heading: string;
-  subheading?: string;
+/** A labelled group of Platform ids, rendered as one row of tiles. */
+export type PlatformGroup = {
+  title: string;
+  platformIds: string[];
 };
 
+export type PlatformSectionContent = SectionHeaderContent & {
+  groups: PlatformGroup[];
+};
+
+/** Grouped as in the company-profile deck's "Teknologi" slide. */
 export const PLATFORM_SECTION: PlatformSectionContent = {
-  heading: "Terhubung dengan alat usaha Anda",
-  subheading:
-    "Kami membangun dan menghubungkan layanan dengan platform berikut, sesuai kebutuhan usaha Anda.",
+  eyebrow: "Teknologi",
+  heading: "Dibangun dengan teknologi yang teruji",
+  lead: "Kami membangun dan menghubungkan layanan dengan platform berikut, sesuai kebutuhan usaha Anda.",
+  groups: [
+    { title: "Pengembangan", platformIds: ["laravel", "react", "nextjs", "firebase"] },
+    { title: "Infrastruktur", platformIds: ["google-cloud", "aws", "cloudflare"] },
+    { title: "Pembayaran & integrasi", platformIds: ["xendit", "midtrans", "whatsapp", "google-sheets"] },
+    { title: "AI", platformIds: ["openai", "google-gemini"] },
+  ],
 };
 
 /**
@@ -190,15 +227,14 @@ export type NavbarContent = {
 
 /**
  * Navbar copy. `links` order is the render order for both the
- * desktop nav and the mobile drawer. Layanan and Karya don't have rendered
- * sections yet (tickets 05/06) — the Navbar must scroll to them gracefully
- * without throwing once they exist, and no-op safely until then.
+ * desktop nav and the mobile drawer.
  */
 export const NAVBAR: NavbarContent = {
   links: [
     { id: SECTION_IDS.layanan, label: "Layanan" },
+    { id: SECTION_IDS.maintenance, label: "Maintenance" },
     { id: SECTION_IDS.karya, label: "Karya" },
-    { id: SECTION_IDS.platform, label: "Platform" },
+    { id: SECTION_IDS.caraKerja, label: "Cara Kerja" },
   ],
   whatsappLabel: "Hubungi kami",
   whatsappMessage:
@@ -222,222 +258,446 @@ export const FOOTER: FooterContent = {
 };
 
 /**
- * One segment of the Profil singkat statement. `highlight` marks a phrase
- * to be rendered in the accent colour — the statement is data, not markup,
- * so ProfileSection never parses copy for emphasis syntax.
+ * Shared header copy for a page section: a small mono eyebrow, the `<h2>`
+ * heading, and an optional lead paragraph (rendered by `SectionHeader`).
+ * `highlight` is a substring of `heading` rendered in the accent colour —
+ * data, not markup, so components never parse copy for emphasis syntax.
  */
-export type ProfileStatementSegment = {
-  text: string;
-  highlight?: boolean;
-};
-
-export type ProfileContent = {
+export type SectionHeaderContent = {
   eyebrow: string;
-  statement: ProfileStatementSegment[];
+  heading: string;
+  highlight?: string;
+  lead?: string;
 };
 
-/**
- * Profil singkat: a short company statement introducing
- * RapiNexa as a team. Highlighted phrases remain plain content segments.
- */
-export const PROFILE: ProfileContent = {
-  eyebrow: "Kenali RapiNexa",
-  statement: [
-    { text: "Kami adalah RapiNexa, " },
-    { text: "tim pengembang solusi digital untuk UMKM", highlight: true },
-    { text: ". Kami membantu Anda " },
+/** An icon + title + one-sentence card, reused by several sections. */
+export type FeatureCard = {
+  icon: IconType;
+  title: string;
+  body: string;
+};
+
+/** A title + one-sentence item without an icon (steps, repair items). */
+export type TextItem = {
+  title: string;
+  body: string;
+};
+
+/* ------------------------------------------------------------------ */
+/* Tentang Kami                                                        */
+/* ------------------------------------------------------------------ */
+
+export type AboutContent = SectionHeaderContent & {
+  points: FeatureCard[];
+};
+
+/** Tentang Kami, per the company-profile deck's "Tentang Kami" slide. */
+export const ABOUT: AboutContent = {
+  eyebrow: "Tentang Kami",
+  heading: "Tim pengembang web untuk UMKM dan bisnis",
+  lead: "Kami membantu usaha Anda tampil profesional secara online dan merapikan pekerjaan sehari-hari lewat aplikasi berbasis web. Ceritakan kebutuhan dan anggaran Anda; kami bantu memilih solusi yang paling berguna.",
+  points: [
     {
-      text: "memperkenalkan usaha dan merapikan pekerjaan sehari-hari",
-      highlight: true,
+      icon: LuGlobe,
+      title: "Usaha lebih dikenal",
+      body: "Website yang membantu calon pelanggan mengenal usaha dan langsung menghubungi Anda.",
     },
     {
-      text: ". Ceritakan kebutuhan dan anggaran Anda; kami bantu memilih layanan yang paling berguna untuk langkah berikutnya.",
+      icon: LuSettings,
+      title: "Kerja lebih rapi",
+      body: "Aplikasi web untuk transaksi, pesanan, stok, dan laporan tanpa catat ulang.",
+    },
+    {
+      icon: LuLock,
+      title: "Tetap terawat",
+      body: "Monitoring, backup, dan update keamanan agar sistem terus berjalan stabil.",
     },
   ],
 };
 
-/**
- * One Website-bisnis-only pricing option (ticket 05: Landing Page vs
- * Company Profile All-In). Both fields are required — an option without its
- * own Starting price would be meaningless, so there's no optional escape
- * hatch here.
- */
-export type ServiceOption = {
-  name: string;
-  startingPrice: number;
-};
+/* ------------------------------------------------------------------ */
+/* Layanan: the four service lines, shown as a jump menu               */
+/* ------------------------------------------------------------------ */
 
 /**
- * A productized offering RapiNexa sells (CONTEXT.md: Service). `id` is a
- * stable slug reused as the WhatsApp CTA's `source: service:<id>` and as
- * the Bundle's `includes[].serviceId` reference — renaming it is a breaking
- * change for both.
- *
- * `startingPrice` is required even for Website bisnis, which also carries
- * `options`: it's the headline "mulai dari" figure (the cheaper option's
- * price) for anywhere a single number is needed, while `options` drives the
- * two-line breakdown on the card itself. Every other Service has no
- * `options` and renders `startingPrice` alone.
- *
- * All fields but `priceNote` and `options` are required by design: a
- * Service entry missing `whatsappMessage` or `startingPrice` must fail
- * `yarn typecheck`, not silently render as `undefined`.
+ * One of RapiNexa's four service lines (CONTEXT.md: Service line). The
+ * Layanan section renders these as an overview whose cards scroll to the
+ * line's own detail section (`target`), so every price is visible on one
+ * screen before the visitor dives in.
  */
-export type Service = {
-  id: string;
+export type ServiceLine = {
+  target: SectionId;
+  icon: IconType;
   name: string;
   summary: string;
-  /** Short bullet list of what's included, rendered as-is (no markup). */
-  includes: string[];
-  startingPrice: number;
-  /** e.g. "sekali bayar, tanpa biaya langganan", "maks. 48 jam". */
-  priceNote?: string;
-  /** Website-bisnis-only: Landing Page vs Company Profile All-In. */
-  options?: ServiceOption[];
-  whatsappMessage: string;
+  /** Already formatted, e.g. "Mulai Rp500.000" or "Sesuai kebutuhan". */
+  priceLabel: string;
 };
 
-/**
- * The four Services RapiNexa sells (ticket 05). Facts (prices, options,
- * notes) are fixed per the ticket/spec, sourced from
- * `docs/notebooks/template-proposal-penawaran.md`. Changing a price here
- * changes it everywhere the price
- * is rendered — no component holds its own copy of a number.
- */
-export const SERVICES: Service[] = [
-  {
-    id: "website-bisnis",
-    name: "Website Bisnis",
-    summary:
-      "Bantu calon pelanggan mengenal usaha, melihat penawaran, dan menghubungi Anda. Mulai dari landing page satu halaman hingga company profile lengkap.",
-    includes: [
-      "Desain rapi dan nyaman dibuka di ponsel",
-      "Tombol untuk langsung menghubungi WhatsApp usaha Anda",
-      "Company Profile All-In: tanpa batas jumlah halaman untuk konten profil standar",
-    ],
-    startingPrice: 249_000,
-    priceNote: "Domain dan hosting dibayar langsung oleh Anda agar kepemilikan tetap di tangan Anda.",
-    options: [
-      { name: "Landing Page", startingPrice: 249_000 },
-      { name: "Company Profile All-In", startingPrice: 1_249_000 },
-    ],
-    whatsappMessage:
-      "Halo RapiNexa, kami tertarik dengan Website Bisnis. Boleh bantu pilih landing page atau company profile yang sesuai kebutuhan dan anggaran kami?",
-  },
-  {
-    id: "video-shorts-reels",
-    name: "Video Shorts/Reels",
-    summary:
-      "Punya rekaman panjang yang belum dimanfaatkan? Kami olah video, webinar, atau materi edukasi Anda menjadi 5 video pendek siap dibagikan ke TikTok, Reels, dan Shorts.",
-    includes: [
-      "5 video vertikal format 9:16",
-      "Pemilihan pembuka yang menarik dan teks ucapan yang rapi",
-      "1 kali revisi gabungan",
-    ],
-    startingPrice: 150_000,
-    priceNote: "Waktu pengerjaan maksimal 48 jam.",
-    whatsappMessage:
-      "Halo RapiNexa, kami tertarik dengan Video Shorts/Reels. Boleh rekomendasikan pengolahan video yang cocok untuk materi kami?",
-  },
-  {
-    id: "pos-kasir-standard",
-    name: "POS Kasir Standar",
-    summary:
-      "Rapikan penjualan tanpa mencatat ulang di buku. Sistem kasir sederhana untuk Android atau peramban komputer membantu Anda melihat transaksi dan laporan harian.",
-    includes: ["Pencatatan transaksi di Android atau peramban komputer", "Daftar produk", "Laporan penjualan harian"],
-    startingPrice: 499_000,
-    priceNote: "Sekali bayar, tanpa biaya langganan.",
-    whatsappMessage:
-      "Halo RapiNexa, kami tertarik dengan POS Kasir Standar. Boleh bantu menilai kecocokannya untuk alur penjualan usaha kami?",
-  },
-  {
-    id: "automation-sederhana",
-    name: "Automation Sederhana",
-    summary:
-      "Kurangi pencatatan berulang agar Anda bisa fokus melayani pelanggan. Kami bantu mencatat pesanan, calon pelanggan, tindak lanjut, atau laporan secara otomatis ke lembar kerja.",
-    includes: [
-      "Pencatatan otomatis ke lembar kerja",
-      "Alur untuk pesanan, calon pelanggan, tindak lanjut, atau laporan",
-      "Pengaturan sesuai kebutuhan usaha Anda",
-    ],
-    startingPrice: 150_000,
-    priceNote: "Harga menyesuaikan alur dan kebutuhan pencatatan.",
-    whatsappMessage:
-      "Halo RapiNexa, kami tertarik dengan Automation Sederhana. Boleh rekomendasikan pencatatan yang paling berguna untuk diotomatisasi?",
-  },
-];
-
-/** Looks up a single Service by id, e.g. for resolving a Bundle's `includes`. */
-export function getServiceById(id: string): Service | undefined {
-  return SERVICES.find((service) => service.id === id);
-}
-
-export type LayananSectionContent = {
-  heading: string;
-  subheading?: string;
-  /** Shared WhatsApp button label for every Service card. */
-  ctaLabel: string;
+export type LayananSectionContent = SectionHeaderContent & {
+  detailLabel: string;
 };
 
 export const LAYANAN_SECTION: LayananSectionContent = {
-  heading: "Solusi untuk kebutuhan usaha Anda",
-  subheading: "Ingin usaha lebih dikenal atau pekerjaan lebih tertata? Pilih kebutuhan Anda, lalu diskusikan cakupan dan anggarannya bersama kami.",
-  ctaLabel: "Tanya Layanan Ini",
+  eyebrow: "Layanan Kami",
+  heading: "Dari membangun hingga merawat website Anda",
+  highlight: "merawat",
+  lead: "Pilih kebutuhan Anda untuk melihat detail dan harganya, lalu diskusikan cakupannya bersama kami.",
+  detailLabel: "Lihat detail",
 };
 
-/** One Service referenced from the Bundle, with its own quantity/notes. */
-export type BundleInclude = {
-  serviceId: string;
-  /** e.g. "1x landing page", "5x Video Shorts/Reels". */
-  note: string;
-};
+/* ------------------------------------------------------------------ */
+/* Pembuatan Website                                                   */
+/* ------------------------------------------------------------------ */
 
 /**
- * A named combination of Services sold at one fixed price (CONTEXT.md:
- * Bundle). Unlike a Service, `price` is not a Starting price — it's rendered
- * with `formatRupiah` alone, never `formatStartingPrice`.
+ * One Website tier (CONTEXT.md: Website tier). `id` is a stable slug used
+ * as the WhatsApp CTA's `source: website:<id>`.
  */
-export type Bundle = {
+export type WebsiteTier = {
+  id: string;
   name: string;
-  price: number;
-  includes: BundleInclude[];
+  startingPrice: number;
   summary: string;
-  /** The "you don't need to buy everything" reassurance line. */
-  reassurance: string;
+  /** Rendered as the highlighted (dark) card, like the deck. */
+  featured?: boolean;
   whatsappMessage: string;
 };
 
-/**
- * The only Bundle RapiNexa currently sells (ticket 05). `includes`
- * references `SERVICES` ids — resolve names via `getServiceById`.
- */
-export const BUNDLE: Bundle = {
-  name: "Paket Digital UMKM",
-  price: 1_499_000,
-  includes: [
-    { serviceId: "website-bisnis", note: "1 landing page" },
-    { serviceId: "video-shorts-reels", note: "5 video pendek" },
-    { serviceId: "pos-kasir-standard", note: "1 sistem kasir" },
-    { serviceId: "automation-sederhana", note: "1 alur pencatatan otomatis" },
-  ],
-  summary:
-    "Siapkan tampilan usaha dan pencatatan harian dalam satu paket: landing page, video pendek, sistem kasir, dan satu alur pencatatan otomatis, dikerjakan oleh tim kami.",
-  reassurance:
-    "Tidak perlu mengambil semuanya. Kami bantu memilih layanan yang paling relevan dan hemat sesuai kebutuhan serta anggaran usaha Anda.",
-  whatsappMessage:
-    "Halo RapiNexa, kami tertarik dengan Paket Digital UMKM. Boleh bantu menilai apakah paket ini sesuai kebutuhan dan anggaran usaha kami?",
-};
-
-export type BundleSectionContent = {
-  /** Eyebrow label above the Bundle card, distinct from `BUNDLE.name`. */
-  heading: string;
+export type WebsiteSectionContent = SectionHeaderContent & {
+  tiers: WebsiteTier[];
+  note: string;
   ctaLabel: string;
 };
 
-export const BUNDLE_SECTION: BundleSectionContent = {
-  heading: "Satu paket, satu tim",
-  ctaLabel: "Diskusikan paket ini",
+/**
+ * Prices per the company-profile deck (2026-11): the deck is the source of
+ * truth for every price on the site. Changing a number here changes it
+ * everywhere it is rendered, the Layanan overview included.
+ */
+export const WEBSITE_SECTION: WebsiteSectionContent = {
+  eyebrow: "Pembuatan Website",
+  heading: "Website sesuai skala usaha Anda",
+  highlight: "skala usaha",
+  lead: "Semua website responsif di ponsel, terhubung langsung ke WhatsApp, dengan domain dan hosting atas nama Anda.",
+  tiers: [
+    {
+      id: "landing-page",
+      name: "Landing Page",
+      startingPrice: 500_000,
+      summary: "Satu halaman untuk mengenalkan usaha dan penawaran Anda, dengan ajakan langsung ke WhatsApp.",
+      whatsappMessage:
+        "Halo RapiNexa, kami tertarik membuat Landing Page. Boleh bantu jelaskan cakupan dan langkah awalnya untuk usaha kami?",
+    },
+    {
+      id: "company-profile-all-in",
+      name: "Company Profile All-In",
+      startingPrice: 1_249_000,
+      summary: "Profil usaha lengkap, tanpa batas jumlah halaman untuk konten profil standar.",
+      whatsappMessage:
+        "Halo RapiNexa, kami tertarik dengan Company Profile All-In. Boleh bantu menilai konten profil yang perlu kami siapkan?",
+    },
+    {
+      id: "custom-web-professional",
+      name: "Custom Web Professional",
+      startingPrice: 3_500_000,
+      summary: "Desain dan fitur dibuat khusus sesuai kebutuhan dan alur bisnis Anda.",
+      featured: true,
+      whatsappMessage:
+        "Halo RapiNexa, kami tertarik dengan Custom Web Professional. Boleh kami ceritakan kebutuhan dan alur bisnis kami untuk dibuatkan penawaran?",
+    },
+  ],
+  note: "Domain dan hosting dibayar langsung oleh Anda agar kepemilikan tetap di tangan Anda.",
+  ctaLabel: "Tanya Paket Ini",
 };
+
+/* ------------------------------------------------------------------ */
+/* Aplikasi Web Bisnis                                                 */
+/* ------------------------------------------------------------------ */
+
+export type AplikasiSectionContent = SectionHeaderContent & {
+  items: FeatureCard[];
+  priceNote: string;
+  ctaLabel: string;
+  whatsappMessage: string;
+};
+
+export const APLIKASI_SECTION: AplikasiSectionContent = {
+  eyebrow: "Aplikasi Web Bisnis",
+  heading: "Aplikasi web untuk merapikan operasional usaha",
+  items: [
+    {
+      icon: LuReceipt,
+      title: "POS Kasir",
+      body: "Catat transaksi di peramban komputer atau Android, kelola daftar produk, dan lihat laporan penjualan harian.",
+    },
+    {
+      icon: LuLayoutDashboard,
+      title: "Panel Pengelolaan",
+      body: "Pantau pesanan, stok, produksi, dan laporan lintas cabang dari satu panel.",
+    },
+    {
+      icon: LuShoppingBag,
+      title: "Toko Online",
+      body: "Katalog produk, akun pelanggan, alamat pengiriman, dan riwayat pesanan.",
+    },
+    {
+      icon: LuLink,
+      title: "Integrasi Sistem",
+      body: "Hubungkan dengan pembayaran Xendit atau Midtrans, WhatsApp, dan Google Sheets.",
+    },
+  ],
+  priceNote: "Biaya dihitung sesuai cakupan dan kebutuhan, setelah konsultasi awal gratis.",
+  ctaLabel: "Konsultasi Aplikasi",
+  whatsappMessage:
+    "Halo RapiNexa, kami ingin merapikan operasional usaha dengan aplikasi web, misalnya kasir, stok, atau toko online. Boleh konsultasi untuk menentukan cakupannya?",
+};
+
+/* ------------------------------------------------------------------ */
+/* Maintenance                                                         */
+/* ------------------------------------------------------------------ */
+
+/**
+ * A monthly website/application care plan (CONTEXT.md: Maintenance
+ * package). `priceFrom` marks a price that is a minimum ("mulai").
+ */
+export type MaintenancePackage = {
+  id: string;
+  name: string;
+  monthlyPrice: number;
+  priceFrom?: boolean;
+  audience: string;
+  includes: string[];
+  featured?: boolean;
+  whatsappMessage: string;
+};
+
+export type MaintenanceSectionContent = SectionHeaderContent & {
+  risksHeading: string;
+  risks: FeatureCard[];
+  packagesHeading: string;
+  packages: MaintenancePackage[];
+  note: string;
+  ctaLabel: string;
+};
+
+export const MAINTENANCE_SECTION: MaintenanceSectionContent = {
+  eyebrow: "Maintenance Website",
+  heading: "Dua paket perawatan, sesuai jenis sistem Anda",
+  highlight: "jenis sistem",
+  risksHeading: "Website yang dibiarkan diam-diam merugikan bisnis",
+  risks: [
+    {
+      icon: LuShieldAlert,
+      title: "Celah keamanan",
+      body: "Plugin, framework, dan dependency yang usang membuka jalan bagi malware.",
+    },
+    {
+      icon: LuGauge,
+      title: "Website melambat",
+      body: "Halaman yang lambat membuat calon pelanggan pergi sebelum menghubungi Anda.",
+    },
+    {
+      icon: LuDatabase,
+      title: "Data bisa hilang",
+      body: "Tanpa backup terjadwal, satu kerusakan server dapat menghapus konten dan data.",
+    },
+    {
+      icon: LuCircleAlert,
+      title: "Fitur rusak tak terlihat",
+      body: "Formulir kontak atau integrasi yang error berarti pesan pelanggan tidak sampai.",
+    },
+  ],
+  packagesHeading: "Pilih paket perawatan",
+  packages: [
+    {
+      id: "professional-care",
+      name: "Professional Care",
+      monthlyPrice: 899_000,
+      audience: "Untuk website bisnis yang aktif: landing page, company profile, dan website custom.",
+      includes: [
+        "Monitoring website, uptime, dan keamanan",
+        "Backup rutin dan pemeriksaan database",
+        "Update sistem, dependency, dan SSL",
+        "Optimasi performa dan perbaikan bug ringan",
+        "Pembaruan konten website",
+        "Prioritas dukungan dan laporan teknis bulanan",
+      ],
+      whatsappMessage:
+        "Halo RapiNexa, kami tertarik dengan paket maintenance Professional Care untuk website kami. Boleh bantu cek apakah paket ini sesuai?",
+    },
+    {
+      id: "custom-application-care",
+      name: "Custom Application Care",
+      monthlyPrice: 2_000_000,
+      priceFrom: true,
+      audience: "Untuk aplikasi custom, dashboard, CRM, ERP, dan sistem informasi perusahaan.",
+      includes: [
+        "Monitoring aplikasi dan database",
+        "Backup database terjadwal",
+        "Update dependency, framework, dan security patch",
+        "Bug fixing dan pemeriksaan integrasi API",
+        "Optimasi performa dan stabilitas sistem",
+        "Laporan teknis berkala",
+      ],
+      featured: true,
+      whatsappMessage:
+        "Halo RapiNexa, kami tertarik dengan Custom Application Care untuk aplikasi kami. Boleh bantu menilai kebutuhan perawatannya?",
+    },
+  ],
+  note: "Harga Custom Application Care disesuaikan dengan kompleksitas aplikasi dan infrastruktur.",
+  ctaLabel: "Tanya Paket Ini",
+};
+
+/* ------------------------------------------------------------------ */
+/* Perbaikan & Fitur                                                   */
+/* ------------------------------------------------------------------ */
+
+export type PerbaikanGroup = {
+  id: string;
+  title: string;
+  heading: string;
+  items: TextItem[];
+  note: string;
+  ctaLabel: string;
+  whatsappMessage: string;
+};
+
+export type PerbaikanSectionContent = SectionHeaderContent & {
+  groups: PerbaikanGroup[];
+};
+
+export const PERBAIKAN_SECTION: PerbaikanSectionContent = {
+  eyebrow: "Perbaikan & Fitur",
+  heading: "Website bermasalah atau perlu fitur baru? Kami tangani.",
+  highlight: "Kami tangani.",
+  groups: [
+    {
+      id: "repair",
+      title: "Repair & Troubleshooting",
+      heading: "Website bermasalah",
+      items: [
+        { title: "Bug fixing", body: "Memperbaiki error dan fitur yang tidak berjalan, dari ringan hingga kompleks." },
+        { title: "Perbaikan database", body: "Memulihkan data dan struktur database yang rusak atau tidak sinkron." },
+        { title: "Website recovery", body: "Menghidupkan kembali website yang down, blank, atau tidak bisa diakses." },
+        { title: "Malware cleanup", body: "Membersihkan malware dan menutup celah keamanan yang dimanfaatkan." },
+        { title: "Error server", body: "Menangani error konfigurasi server, hosting, dan sertifikat SSL." },
+        { title: "Optimasi kecepatan", body: "Mempercepat waktu muat agar pengunjung tidak keburu pergi." },
+        { title: "Migrasi hosting", body: "Memindahkan website ke hosting atau server baru dengan aman." },
+        { title: "Emergency support", body: "Penanganan darurat, termasuk di luar jam operasional." },
+      ],
+      note: "Biaya ditentukan setelah pemeriksaan dan analisis kerusakan.",
+      ctaLabel: "Laporkan Masalah",
+      whatsappMessage:
+        "Halo RapiNexa, website kami sedang bermasalah. Boleh bantu periksa dan perkirakan biaya perbaikannya?",
+    },
+    {
+      id: "development",
+      title: "Pengembangan & Fitur Tambahan",
+      heading: "Tambah fitur tanpa membangun ulang",
+      items: [
+        { title: "Update konten", body: "Memperbarui teks, gambar, harga, dan informasi usaha." },
+        { title: "Section & halaman", body: "Menambah section atau halaman baru, seperti promo, galeri, dan FAQ." },
+        { title: "Formulir", body: "Formulir kontak, pemesanan, pendaftaran, atau survei pelanggan." },
+        { title: "Integrasi WhatsApp", body: "Tombol chat dan pesan otomatis ke WhatsApp usaha." },
+        { title: "Integrasi API", body: "Hubungkan ke pembayaran, Google Sheets, atau layanan lain." },
+        { title: "Fitur baru", body: "Fitur khusus sesuai alur bisnis, seperti katalog, booking, atau login." },
+        { title: "Modul aplikasi", body: "Modul baru untuk aplikasi web yang sudah berjalan, seperti stok atau laporan." },
+        { title: "Penyegaran desain", body: "Memperbarui tampilan agar lebih modern dan sesuai identitas brand." },
+      ],
+      note: "Biaya sesuai cakupan, dikerjakan setelah Anda menyetujui penawaran.",
+      ctaLabel: "Diskusikan Fitur",
+      whatsappMessage:
+        "Halo RapiNexa, kami ingin menambah fitur di website atau aplikasi kami. Boleh diskusikan cakupan dan biayanya?",
+    },
+  ],
+};
+
+/* ------------------------------------------------------------------ */
+/* Cara Kerja & Kenapa RapiNexa                                        */
+/* ------------------------------------------------------------------ */
+
+export type CaraKerjaSectionContent = SectionHeaderContent & {
+  steps: TextItem[];
+};
+
+export const CARA_KERJA_SECTION: CaraKerjaSectionContent = {
+  eyebrow: "Cara Kerja",
+  heading: "Transparan dari pemeriksaan hingga laporan",
+  steps: [
+    { title: "Konsultasi gratis", body: "Ceritakan kebutuhan, kondisi website, dan anggaran Anda." },
+    { title: "Pemeriksaan", body: "Kami analisis masalah dan kebutuhan teknisnya." },
+    { title: "Persetujuan biaya", body: "Pekerjaan dimulai setelah Anda menyetujui biaya." },
+    { title: "Pengerjaan", body: "Perawatan, perbaikan, atau pengembangan dijalankan." },
+    { title: "Laporan", body: "Hasil kerja dilaporkan secara berkala." },
+  ],
+};
+
+export type KenapaSectionContent = SectionHeaderContent & {
+  reasons: FeatureCard[];
+};
+
+export const KENAPA_SECTION: KenapaSectionContent = {
+  eyebrow: "Kenapa RapiNexa",
+  heading: "Partner web yang jelas dan dapat diandalkan",
+  reasons: [
+    {
+      icon: LuMessageCircle,
+      title: "Konsultasi gratis",
+      body: "Diskusikan kebutuhan dan anggaran sebelum memutuskan apa pun.",
+    },
+    {
+      icon: LuKeyRound,
+      title: "Milik Anda sepenuhnya",
+      body: "Domain dan hosting atas nama Anda, sehingga kepemilikan tetap di tangan Anda.",
+    },
+    {
+      icon: LuHandshake,
+      title: "Biaya transparan",
+      body: "Penawaran jelas di awal, dan pekerjaan tambahan selalu disetujui klien lebih dulu.",
+    },
+    {
+      icon: LuBadgeCheck,
+      title: "Dirawat setelah jadi",
+      body: "Paket maintenance dengan laporan rutin agar website terus prima.",
+    },
+  ],
+};
+
+/**
+ * The four service lines in deck order. Price labels are derived from the
+ * detail sections' data so the overview can never disagree with them.
+ */
+export const SERVICE_LINES: ServiceLine[] = [
+  {
+    target: SECTION_IDS.website,
+    icon: LuGlobe,
+    name: "Pembuatan Website",
+    summary: "Landing page, company profile, hingga website custom profesional.",
+    priceLabel: `Mulai ${formatRupiah(Math.min(...WEBSITE_SECTION.tiers.map((tier) => tier.startingPrice)))}`,
+  },
+  {
+    target: SECTION_IDS.aplikasi,
+    icon: LuCode,
+    name: "Aplikasi Web Bisnis",
+    summary: "POS kasir, panel pengelolaan, toko online, dan integrasi sistem.",
+    priceLabel: "Sesuai kebutuhan",
+  },
+  {
+    target: SECTION_IDS.maintenance,
+    icon: LuSettings,
+    name: "Maintenance Website",
+    summary: "Monitoring, backup, update keamanan, dan laporan rutin.",
+    priceLabel: `Mulai ${formatRupiah(Math.min(...MAINTENANCE_SECTION.packages.map((pkg) => pkg.monthlyPrice)))}/bln`,
+  },
+  {
+    target: SECTION_IDS.perbaikan,
+    icon: LuWrench,
+    name: "Perbaikan & Fitur",
+    summary: "Perbaikan bug, recovery, migrasi server, dan penambahan fitur.",
+    priceLabel: "Sesuai cakupan",
+  },
+];
 
 /**
  * Everything RapiNexa delivered for one Client (CONTEXT.md: Work), shown as
@@ -477,7 +737,7 @@ export const WORKS: Work[] = [
   {
     client: "Djampi Jawi",
     summary:
-      "Transaksi, pesanan, stok, dan produksi jamu Djampi Jawi lebih mudah dipantau lintas cabang. Sistem kasir dan panel pengelolaan membantu pencatatan dari pesanan masuk hingga laporan akhir giliran kerja.",
+      "Transaksi, pesanan, stok, dan produksi jamu kini mudah dipantau lintas cabang. Sistem kasir dan panel pengelolaan membantu pencatatan dari pesanan masuk hingga laporan akhir giliran kerja.",
     deliverables: ["POS Kasir", "Panel Pengelolaan Usaha"],
     // platforms: ["react-native", "laravel"],
     screenshots: [
@@ -490,21 +750,19 @@ export const WORKS: Work[] = [
   {
     client: "Moment Stockist",
     summary:
-      "Toko online Moment Stockist membantu pelanggan mengenal produk suplemen dan berbelanja dari katalog hingga penyelesaian pesanan. Pelanggan dapat menyimpan alamat pengiriman dan melihat riwayat pesanan lewat akun mereka.",
-    deliverables: ["Website dan Pengelolaan Konten", "Integrasi Sistem"],
+      "Toko online produk suplemen, dari katalog hingga penyelesaian pesanan. Pelanggan dapat menyimpan alamat pengiriman dan melihat riwayat pesanan lewat akun mereka.",
+    deliverables: ["Toko Online", "Integrasi Sistem"],
     screenshots: ["/assets/screenshots/moment-stockist-1.png"],
     initials: "MS",
   },
 ];
 
-export type KaryaSectionContent = {
-  heading: string;
-  subheading?: string;
-};
+export type KaryaSectionContent = SectionHeaderContent;
 
 export const KARYA_SECTION: KaryaSectionContent = {
+  eyebrow: "Portofolio",
   heading: "Karya untuk usaha nyata",
-  subheading: "Dari transaksi harian hingga informasi untuk pelanggan, berikut solusi yang kami kerjakan untuk membantu bisnis klien berjalan lebih rapi.",
+  lead: "Dari transaksi harian hingga informasi untuk pelanggan, berikut solusi yang kami kerjakan untuk membantu bisnis klien berjalan lebih rapi.",
 };
 
 export type CtaContent = {
@@ -519,8 +777,8 @@ export type CtaContent = {
  * Footer, inviting them to chat on WhatsApp.
  */
 export const CTA: CtaContent = {
-  heading: "Mulai dari kebutuhan usaha Anda",
-  body: "Ceritakan pekerjaan yang ingin dirapikan atau penawaran yang ingin dikenalkan. Kami bantu pilih langkah yang sesuai kebutuhan dan anggaran Anda lewat konsultasi awal tanpa biaya.",
+  heading: "Mulai dari kebutuhan usaha Anda.",
+  body: "Konsultasi awal tanpa biaya. Ceritakan pekerjaan yang ingin dirapikan atau penawaran yang ingin dikenalkan.",
   ctaLabel: "Diskusi Lewat WhatsApp",
   ctaMessage:
     "Halo RapiNexa, boleh minta rekomendasi layanan digital yang sesuai dengan kebutuhan dan anggaran usaha kami?",

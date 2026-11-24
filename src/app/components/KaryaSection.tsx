@@ -1,4 +1,5 @@
 import { getPlatformsByIds, KARYA_SECTION, SECTION_IDS, WORKS, type Work } from "src/data/content";
+import SectionHeader from "./SectionHeader";
 import WorkGallery from "./WorkGallery";
 
 /**
@@ -18,35 +19,9 @@ export default function KaryaSection() {
     <section
       id={SECTION_IDS.karya}
       className="mx-auto w-full"
-      style={{ maxWidth: 1080, padding: "80px 20px" }}
+      style={{ maxWidth: 1080, padding: "80px 20px 40px" }}
     >
-      <div className="text-center" style={{ marginBottom: 40 }}>
-        <h2
-          style={{
-            fontFamily: "var(--font-display)",
-            fontWeight: 700,
-            fontSize: "clamp(24px,4vw,36px)",
-            color: "var(--text)",
-            margin: 0,
-          }}
-        >
-          {KARYA_SECTION.heading}
-        </h2>
-        {KARYA_SECTION.subheading ? (
-          <p
-            className="mx-auto"
-            style={{
-              maxWidth: 520,
-              marginTop: 12,
-              color: "var(--muted)",
-              fontSize: 15,
-              lineHeight: 1.6,
-            }}
-          >
-            {KARYA_SECTION.subheading}
-          </p>
-        ) : null}
-      </div>
+      <SectionHeader content={KARYA_SECTION} />
 
       <ul
         style={{

@@ -1,29 +1,13 @@
 import { useEffect, useState } from "react";
 import { NAVBAR, WORDMARK, type SectionId } from "src/data/content";
+import { scrollToSection } from "src/lib/scroll";
 import ThemeToggle from "./ThemeToggle";
 import WhatsAppButton from "./WhatsAppButton";
 
 /**
- * Smooth-scrolls to a section by its `SECTION_IDS` anchor. Layanan and
- * Karya don't have rendered sections yet (tickets 05/06), so this must
- * never throw when the target is missing — it falls back to scrolling to
- * the top of the page instead.
- */
-function scrollToSection(id: SectionId) {
-  if (typeof document === "undefined") return;
-
-  const target = document.getElementById(id);
-  if (target) {
-    target.scrollIntoView({ behavior: "smooth", block: "start" });
-  } else {
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  }
-}
-
-/**
  * Always-visible site Navbar (ticket 03): gold "RapiNexa" wordmark with the
- * RapiNexa mark (ticket 08) beside it, in-page anchor links to
- * Layanan/Karya/Platform, the theme toggle, and a `WhatsAppButton`
+ * RapiNexa mark (ticket 08) beside it, in-page anchor links (see
+ * `NAVBAR.links`), the theme toggle, and a `WhatsAppButton`
  * (`source: navbar`). At phone width the links/toggle/WhatsApp button move
  * into a hamburger-triggered mobile drawer instead of the desktop row.
  *

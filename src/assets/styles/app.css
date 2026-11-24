@@ -62,6 +62,11 @@ body {
   --gold-soft: rgba(168, 121, 31, 0.16);
 }
 
+/* In-page anchors land below the fixed 74px Navbar instead of under it. */
+section[id] {
+  scroll-margin-top: 64px;
+}
+
 /* ── Hero / HeroOrbit / ProfileSection animations ──
    Ported from docs/reactjs/src/assets/styles/app.css: the orbit ring spin
    (and its counter-spin, so chip labels stay upright), the Hero's

@@ -1,15 +1,12 @@
-import { LAYANAN_SECTION, SECTION_IDS, SERVICES, type Service } from "src/data/content";
-import { formatStartingPrice } from "src/lib/currency";
-import WhatsAppButton from "./WhatsAppButton";
-import type { BaseProps } from "src/types/utilities";
-import clsx from "clsx";
+import { LuArrowDown } from "react-icons/lu";
+import { LAYANAN_SECTION, SECTION_IDS, SERVICE_LINES, type ServiceLine } from "src/data/content";
+import { scrollToSection } from "src/lib/scroll";
+import SectionHeader from "./SectionHeader";
 
 /**
- * Layanan section (ticket 05): one card per Service, sourced entirely from
- * `SERVICES` in the content layer — adding/removing/reordering an entry
- * there changes the rendered cards with no change to this component. See
- * `BundleSection` for the gold-accented Bundle card that sits directly
- * below it.
+ * Layanan: the four service lines side by side, each with its starting
+ * price, acting as a jump menu to the line's detail section. Sourced from
+ * `SERVICE_LINES`, whose price labels derive from the detail sections.
  */
 export default function LayananSection() {
   return (
@@ -18,148 +15,97 @@ export default function LayananSection() {
       className="mx-auto w-full"
       style={{ maxWidth: 1080, padding: "80px 20px 40px" }}
     >
-      <div className="text-center" style={{ marginBottom: 40 }}>
-        <h2
-          style={{
-            fontFamily: "var(--font-display)",
-            fontWeight: 700,
-            fontSize: "clamp(24px,4vw,36px)",
-            color: "var(--text)",
-            margin: 0,
-          }}
-        >
-          {LAYANAN_SECTION.heading}
-        </h2>
-        {LAYANAN_SECTION.subheading ? (
-          <p
-            className="mx-auto"
-            style={{
-              maxWidth: 520,
-              marginTop: 12,
-              color: "var(--muted)",
-              fontSize: 15,
-              lineHeight: 1.6,
-            }}
-          >
-            {LAYANAN_SECTION.subheading}
-          </p>
-        ) : null}
-      </div>
-
+      <SectionHeader content={LAYANAN_SECTION} />
       <ul
-        className="grid grid-cols-12 gap-5"
-        style={{
-          justifyContent: "center",
-          margin: 0,
-          padding: 0,
-        }}
+        className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4"
+        style={{ margin: 0, padding: 0 }}
       >
-        {SERVICES.map((service, index) => (
-          <li key={service.id} className={clsx([
-            "lg:col-span-4 md:col-span-5 sm:col-span-6 col-span-12",
-            (index + 1) % 2 === 1 && "lg:col-start-3 md:col-start-2"
-          ])}>
-            <ServiceCard className="min-h-full" service={service} />
-          </li>
+        {SERVICE_LINES.map((line) => (
+          <ServiceLineCard key={line.target} line={line} />
         ))}
       </ul>
     </section>
   );
 }
 
-function ServiceCard({ className, service }: BaseProps & { service: Service }) {
+function ServiceLineCard({ line }: { line: ServiceLine }) {
+  const Icon = line.icon;
+
   return (
-    <div
-      className={clsx(["flex flex-col", className])}
-      style={{
-        listStyle: "none",
-        border: "1px solid var(--border)",
-        background: "var(--surface)",
-        borderRadius: 18,
-        padding: "26px 24px",
-        gap: 14,
-      }}
-    >
-      <h3
+    <li style={{ listStyle: "none" }}>
+      <a
+        href={`#${line.target}`}
+        onClick={(e) => {
+          e.preventDefault();
+          scrollToSection(line.target);
+        }}
+        className="group flex h-full flex-col no-underline transition-colors duration-200 hover:border-[var(--accent)] hover:bg-[var(--surface-hover)]"
         style={{
-          fontFamily: "var(--font-display)",
-          fontWeight: 700,
-          fontSize: 19,
-          color: "var(--text)",
-          margin: 0,
+          border: "1px solid var(--border)",
+          background: "var(--surface)",
+          borderRadius: 18,
+          padding: "22px 22px 20px",
+          gap: 10,
+          color: "inherit",
         }}
       >
-        {service.name}
-      </h3>
-
-      <p style={{ margin: 0, color: "var(--muted)", fontSize: 14, lineHeight: 1.6 }}>
-        {service.summary}
-      </p>
-
-      <ul style={{ margin: 0, padding: 0, display: "flex", flexDirection: "column", gap: 6 }}>
-        {service.includes.map((item) => (
-          <li
-            key={item}
-            style={{
-              listStyle: "none",
-              display: "flex",
-              gap: 8,
-              fontSize: 13.5,
-              lineHeight: 1.5,
-              color: "var(--text)",
-            }}
-          >
-            <span aria-hidden="true" style={{ color: "var(--accent-text)" }}>
-              ✓
-            </span>
-            <span>{item}</span>
-          </li>
-        ))}
-      </ul>
-
-      <div style={{ marginTop: "auto", display: "flex", flexDirection: "column", gap: 8 }}>
-        {service.options ? (
-          service.options.map((option) => (
-            <div
-              key={option.name}
-              className="flex flex-col items-start justify-between"
-            >
-              <span style={{ fontSize: 13, color: "var(--muted)" }}>{option.name}</span>
-              <span
-                className="font-mono font-bold text-sm text-accent -mt-px"
-                style={{
-                  color: "var(--accent-text)",
-                }}
-              >
-                {formatStartingPrice(option.startingPrice)}
-              </span>
-            </div>
-          ))
-        ) : (
+        <span
+          aria-hidden="true"
+          className="inline-flex items-center justify-center"
+          style={{
+            width: 40,
+            height: 40,
+            borderRadius: 12,
+            background: "var(--accent-soft)",
+            color: "var(--accent-text)",
+          }}
+        >
+          <Icon size={20} />
+        </span>
+        <h3
+          style={{
+            fontFamily: "var(--font-display)",
+            fontWeight: 700,
+            fontSize: 18,
+            color: "var(--text)",
+            margin: "4px 0 0",
+          }}
+        >
+          {line.name}
+        </h3>
+        <p style={{ margin: 0, color: "var(--muted)", fontSize: 14, lineHeight: 1.6 }}>{line.summary}</p>
+        <div
+          style={{
+            marginTop: "auto",
+            paddingTop: 14,
+            borderTop: "1px solid var(--border)",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+            flexWrap: "wrap",
+            gap: "6px 8px",
+          }}
+        >
           <span
             style={{
               fontFamily: "var(--font-mono)",
               fontWeight: 700,
-              fontSize: 15,
+              fontSize: 14,
               color: "var(--accent-text)",
+              whiteSpace: "nowrap",
             }}
           >
-            {formatStartingPrice(service.startingPrice)}
+            {line.priceLabel}
           </span>
-        )}
-
-        {service.priceNote ? (
-          <p style={{ margin: 0, fontSize: 12, color: "var(--faint)" }}>{service.priceNote}</p>
-        ) : null}
-      </div>
-
-      <WhatsAppButton
-        source={`service:${service.id}`}
-        message={service.whatsappMessage}
-        label={LAYANAN_SECTION.ctaLabel}
-        variant="secondary"
-        className="justify-center"
-      />
-    </div>
+          <span
+            className="inline-flex items-center gap-1 transition-transform duration-200 group-hover:translate-y-0.5"
+            style={{ fontSize: 13, fontWeight: 600, color: "var(--muted)", whiteSpace: "nowrap" }}
+          >
+            {LAYANAN_SECTION.detailLabel}
+            <LuArrowDown aria-hidden="true" size={14} />
+          </span>
+        </div>
+      </a>
+    </li>
   );
 }

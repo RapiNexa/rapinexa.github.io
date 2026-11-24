@@ -1,59 +1,53 @@
 import clsx from "clsx";
 import type { CSSProperties } from "react";
-import { PLATFORM_SECTION, PLATFORMS, SECTION_IDS, type Platform } from "src/data/content";
+import { getPlatformsByIds, PLATFORM_SECTION, SECTION_IDS, type Platform } from "src/data/content";
 import type { BaseProps } from "src/types/utilities";
+import SectionHeader from "./SectionHeader";
 
 /**
- * Platform section: a simple, responsive grid of monochrome Platform logos
- * (icon + name), sourced entirely from `PLATFORMS` in the content layer.
- * Adding or removing an entry there changes the rendered tiles with no
- * change to this component. See `.platform-tile` in app.css for the
- * text-colour → brandColor hover treatment.
+ * Teknologi: Platform logos (icon + name) grouped by purpose, sourced from
+ * `PLATFORM_SECTION.groups` in the content layer. See `.platform-tile` in
+ * app.css for the text-colour → brandColor hover treatment.
  */
 export default function PlatformSection() {
   return (
     <section
       id={SECTION_IDS.platform}
       className="mx-auto w-full"
-      style={{ maxWidth: 1080, padding: "80px 20px" }}
+      style={{ maxWidth: 1080, padding: "80px 20px 40px" }}
     >
-      <div className="text-center" style={{ marginBottom: 40 }}>
-        <h2
-          style={{
-            fontFamily: "var(--font-display)",
-            fontWeight: 700,
-            fontSize: "clamp(24px,4vw,36px)",
-            color: "var(--text)",
-            margin: 0,
-          }}
-        >
-          {PLATFORM_SECTION.heading}
-        </h2>
-        {PLATFORM_SECTION.subheading ? (
-          <p
-            className="mx-auto"
+      <SectionHeader content={PLATFORM_SECTION} />
+
+      <div className="grid gap-5 sm:grid-cols-2">
+        {PLATFORM_SECTION.groups.map((group) => (
+          <div
+            key={group.title}
             style={{
-              maxWidth: 520,
-              marginTop: 12,
-              color: "var(--muted)",
-              fontSize: 15,
-              lineHeight: 1.6,
+              border: "1px solid var(--border)",
+              background: "var(--surface)",
+              borderRadius: 18,
+              padding: "20px 22px 22px",
             }}
           >
-            {PLATFORM_SECTION.subheading}
-          </p>
-        ) : null}
-      </div>
-
-      <ul
-        className="flex flex-wrap justify-center items-start gap-4"
-      >
-        {PLATFORMS.map((platform) => (
-          <div key={platform.id} className="w-28">
-            <PlatformTile className="w-full h-24" platform={platform} />
+            <h3
+              style={{
+                fontFamily: "var(--font-display)",
+                fontWeight: 700,
+                fontSize: 16.5,
+                color: "var(--text)",
+                margin: "0 0 14px",
+              }}
+            >
+              {group.title}
+            </h3>
+            <ul className="flex flex-wrap gap-3" style={{ margin: 0, padding: 0 }}>
+              {getPlatformsByIds(group.platformIds).map((platform) => (
+                <PlatformTile key={platform.id} className="w-24 min-h-20"platform={platform} />
+              ))}
+            </ul>
           </div>
         ))}
-      </ul>
+      </div>
     </section>
   );
 }
@@ -62,13 +56,14 @@ function PlatformTile({ className, platform }: BaseProps & { platform: Platform 
   const Icon = platform.icon;
   const tileStyle = {
     "--platform-brand": platform.brandColor ?? "var(--accent)",
+    padding: "14px 8px",
   } as CSSProperties;
 
   return (
     <li className={clsx("platform-tile", className)} style={tileStyle}>
       {Icon ? (
         <>
-          <Icon aria-hidden="true" size={32} />
+          <Icon aria-hidden="true" size={26} />
           <span className="platform-tile__name">{platform.name}</span>
         </>
       ) : (

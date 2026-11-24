@@ -7,10 +7,8 @@ export function formatRupiah(amount: number): string {
 }
 
 /**
- * Formats a Service's Starting price (CONTEXT.md: "the lowest price at
- * which a Service is offered"), e.g. `249000` -> `"mulai dari Rp249.000"`.
- * Never used for a Bundle's price, which is a fixed total, not a Starting
- * price.
+ * Formats a Starting price (CONTEXT.md), e.g. `500000` ->
+ * `"mulai dari Rp500.000"`.
  */
 export function formatStartingPrice(amount: number): string {
   return `mulai dari ${formatRupiah(amount)}`;
